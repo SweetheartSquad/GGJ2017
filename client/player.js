@@ -26,6 +26,8 @@ function Player( _id ){
     this.beanSprite.scale.y = this.beanSprite.scale.x;
     this.container.addChild( this.beanSprite );
 
+    this.swimmerSprite.tint = this.beanSprite.tint = Math.random()*0xFFFFFF;
+
     this.nextStroke = 0;
     this.framesSinceCorrectStroke = 0;
     
