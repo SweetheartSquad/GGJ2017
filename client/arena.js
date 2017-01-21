@@ -100,6 +100,15 @@ Arena.prototype.swap = function( pA, pB ){
 	pA.lane = pB.lane;
 	pB.lane = la;
 
+	pA.visualSwapQueue.push({
+		lane: pA.lane,
+		time: 10
+	});
+	pB.visualSwapQueue.push({
+		lane: pB.lane,
+		time: 10
+	});
+
 	// if a player has the bean, also swap that
 	if( pA.hasBean ){
 		pB.hasBean = true;

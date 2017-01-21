@@ -11,6 +11,8 @@ function Player( _id ){
     this.lapsRemaining = NUM_LAPS;
 
     this.container = new PIXI.Container();
+    this.container.y = poolBounds.y + laneSize * (this.lane + 0.5);
+
     
     this.swimmerSprite = new PIXI.Sprite( PIXI.loader.resources.swimmer.texture );
     this.swimmerSprite.anchor.x = 0.5;
@@ -52,6 +54,8 @@ function Player( _id ){
 
     this.speed = DEFAULT_SPEED;
     this.direction = 1;
+
+    this.visualSwapQueue = [];
 }
 
 
@@ -124,7 +128,15 @@ Player.prototype.update = function(){
         this.container.scale.x *= -1;
     }
     
-    this.container.y = poolBounds.y + laneSize * (this.lane + 0.5);
+    if(this.visualSwapQueue.length > 0){
+    	this.visualSwapQueue[0].time -= 1;
+    	if(this.visualSwapQueue[0].time <= 0){
+    		this.visualSwapQueue.shift();
+    	}
+    }
+
+    var l = this.visualSwapQueue.length > 0 ? this.visualSwapQueue[0].lane : this.lane;
+    this.container.y = lerp(this.container.y, poolBounds.y + laneSize * (l + 0.5), 0.25);
 }
 
 
