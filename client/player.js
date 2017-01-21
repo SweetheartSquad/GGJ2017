@@ -6,6 +6,7 @@ SPEED_RESET_FRAMES = 60;
 function Player( _id ){
     
     this.id = _id;
+    this.lane = _id;
     this.container = new PIXI.Container();
     this.beanSprite = new PIXI.Sprite( PIXI.loader.resources.bean.texture );
     this.beanSprite.anchor.x = 0.5;
@@ -20,8 +21,6 @@ function Player( _id ){
     debug.endFill();
     this.container.addChild(debug);
 
-	var laneSize = poolBounds.height * 0.25;
-    this.container.y = poolBounds.y + laneSize * (this.id + 0.5);
     this.container.x = poolBounds.x + this.beanSprite.width * 0.5;
 
     this.speed = DEFAULT_SPEED;
@@ -31,7 +30,10 @@ function Player( _id ){
 
 
 Player.prototype.update = function(){
-    
+	var laneSize = poolBounds.height * 0.25;
+	
+    this.lastX = this.container.x;
+
     var input = getInput( this.id );
 
     this.framesSinceCorrectStroke++;
@@ -72,6 +74,8 @@ Player.prototype.update = function(){
     if( this.container.x - this.beanSprite.width/2 <= poolBounds.x ){
         this.direction = 1;
     }
+
+    this.container.y = poolBounds.y + laneSize * (this.lane + 0.5);
 }
 
 

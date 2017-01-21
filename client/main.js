@@ -120,11 +120,18 @@ function getInput(_playerId){
 	};
 
 	switch(_playerId){
-		case 1:
+		case 0:
 		keyConfig.strokeLeft = keys.Q;
 		keyConfig.strokeRight = keys.W;
 		keyConfig.dive = keys.A;
 		keyConfig.swap = keys.S;
+		break;
+
+		case 1:
+		keyConfig.strokeLeft = keys.U;
+		keyConfig.strokeRight = keys.I;
+		keyConfig.dive = keys.J;
+		keyConfig.swap = keys.K;
 		break;
 
 		default:
