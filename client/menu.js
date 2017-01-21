@@ -1,7 +1,7 @@
 function Menu(){
 	this.scene = new PIXI.Container();
 	game.addChild(this.scene);
-
+	
 }
 
 
