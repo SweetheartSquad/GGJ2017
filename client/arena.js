@@ -71,11 +71,20 @@ Arena.prototype.update = function(){
 
 	this.updateLanes();
 	this.updateLaneCounts();
-} 
+};
 
 
 Arena.prototype.render = function(){
 	
+};
+
+Arena.prototype.isDone = function(){
+	for( var i = 0; i < this.players.length; i++ ){
+		if(this.players[i].lapsRemaining <= 0){
+			return true;
+		}
+	}
+	return false;
 }
 
 
@@ -90,7 +99,7 @@ Arena.prototype.handlePass = function(pA, pB){
 	}
 	pA.executeQueued();
 	pB.executeQueued();
-}
+};
 
 Arena.prototype.swap = function( pA, pB ){
 	console.log("swap");
@@ -117,7 +126,7 @@ Arena.prototype.swap = function( pA, pB ){
 		pA.hasBean = true;
 		pB.hasBean = false;
 	}
-}
+};
 
 Arena.prototype.addPlayers = function(){
 	for( var i = 0; i < 4; i++ ){
@@ -125,7 +134,7 @@ Arena.prototype.addPlayers = function(){
 		this.players.push( player );
 		this.scene.addChild( player.container );
 	}
-}
+};
 
 
 Arena.prototype.addLanes = function(){
@@ -146,7 +155,8 @@ Arena.prototype.addLanes = function(){
 		this.scene.addChild( lane.container );
 		this.lanes.push(lane);
 	}
-}
+};
+
 Arena.prototype.addLaneCounts = function(){
 	var font = new PIXI.TextStyle({
 		fontFamily: "Arial",
@@ -174,7 +184,7 @@ Arena.prototype.addLaneCounts = function(){
 		this.scene.addChild( laneCount.texts[1] );
 		this.laneCounts.push(laneCount);
 	}
-}
+};
 
 
 
@@ -186,7 +196,7 @@ Arena.prototype.updateLanes = function(){
 			lane.points[p].y = (Math.sin(i + p/2 + curTime/111)*3 + Math.sin(i/3 + p/4 + curTime/222)*3 + Math.sin(i/5 + p/6 + curTime/333)*3) * (1 - (Math.abs(p - lane.points.length/2))/(lane.points.length/2));
 		}
 	}
-}
+};
 
 Arena.prototype.updateLaneCounts = function(){
 	// wavy lanes
@@ -198,4 +208,4 @@ Arena.prototype.updateLaneCounts = function(){
 			text.setText(laneCount.player.lapsRemaining);
 		}
 	}
-}
+};
