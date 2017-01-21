@@ -66,7 +66,10 @@ $(document).ready(function(){
 
 	PIXI.loader
 		.add("screen_shader","assets/screen_shader.frag")
-		.add("bean","assets/bean.png");
+		.add("BEAN-logo","assets/img/BEAN-logo.png")
+		.add("arena","assets/img/arena.png")
+		.add("lane","assets/img/lane.png")
+		.add("bean","assets/img/bean.png");
 	PIXI.loader
 		.on("progress", loadProgressHandler)
 		.load(init);
