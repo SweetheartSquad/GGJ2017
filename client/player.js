@@ -7,6 +7,12 @@ function Player( _id ){
     this.beanSprite.anchor.y = 0.5;
     this.container.addChild( this.beanSprite );
 
+    var debug = new PIXI.Graphics();
+    debug.beginFill(0xFF0000);
+    debug.drawCircle(0,0,60);
+    debug.endFill();
+    this.container.addChild(debug);
+
 	var laneSize = poolBounds.height * 0.25;
     this.container.y = laneSize * this.id;
     this.container.x = poolBounds.x + this.beanSprite.width * 0.5;
