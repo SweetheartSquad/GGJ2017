@@ -1,6 +1,6 @@
-var startTime=0;
-var lastTime=0;
-var curTime=0;
+var startTime = 0;
+var lastTime = 0;
+var curTime = 0;
 
 var game;
 try{
@@ -66,6 +66,7 @@ $(document).ready(function(){
 
 	PIXI.loader
 		.add("screen_shader","assets/screen_shader.frag")
+		.add("bean","assets/bean.png");
 	PIXI.loader
 		.on("progress", loadProgressHandler)
 		.load(init);

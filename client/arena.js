@@ -4,12 +4,11 @@ function Arena(){
 
 	game.addChild(this.scene);
 
-	this.scene.x = -size.x/2;
-	this.scene.y = -size.y/2;
+	var player = new Player();
+	this.scene.addChild( player.container );
 
-	game.position.x = size.x/2;
-	game.position.y = size.y/2;
-
+	player.container.x = 500;
+	player.container.y = 500;
 }
 
 
@@ -20,4 +19,4 @@ Arena.prototype.update = function(){
 
 Arena.prototype.render = function(){
 	
-} 
+}

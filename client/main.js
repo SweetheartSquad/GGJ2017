@@ -1,3 +1,9 @@
+
+var MENU = 0;
+var GAME = 1;
+
+var state = GAME;
+
 function main(){
 	curTime = Date.now()-startTime;
 	deltaTime = curTime-lastTime;
@@ -23,14 +29,14 @@ function init(){
 	screen_filter.padding = 0;
 	renderSprite.filterArea = new PIXI.Rectangle(0,0,size.x,size.y);
 
-	renderSprite.filters = [screen_filter];
+	//renderSprite.filters = [screen_filter];
 
 	transition = 0;
 	transitionDirection = 1;
 
-
-	menu = new Menu();
+	//menu = new Menu();
 	arena = new Arena();
+
 
 	// setup resize
 	window.onresize = onResize;
@@ -42,17 +48,17 @@ function init(){
 
 function onResize() {
 	_resize();
-	screen_filter.uniforms["screen"] = [size.x,size.y];
-	screen_filter.uniforms["bufferSize"] = [nextPowerOfTwo(size.x),nextPowerOfTwo(size.y)];
+	//screen_filter.uniforms["screen"] = [size.x,size.y];
+	//screen_filter.uniforms["bufferSize"] = [nextPowerOfTwo(size.x),nextPowerOfTwo(size.y)];
 
 	console.log("Resized",size,scaleMultiplier,[size.x*scaleMultiplier,size.y*scaleMultiplier]);
 }
 
 function update(){
 
-	if(menu){
+	if( state === MENU ){
 		menu.update();
-	}else if(arena){
+	}else if( state === GAME ){
 		arena.update();
 	}else{
 
@@ -74,9 +80,9 @@ function update(){
 
 function render(){
 
-	if(menu){
+	if(state === MENU){
 		menu.render();
-	}else if(arena){
+	}else if(state === GAME){
 		arena.render();
 	}
 
@@ -88,8 +94,6 @@ function render(){
 		console.error(e);
 	}
 }
-
-
 
 
 function getInput(_playerId){
