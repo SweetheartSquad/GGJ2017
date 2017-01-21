@@ -67,6 +67,12 @@ function Menu(_players){
 	this.logo.scale.y = this.logo.scale.x;
 	this.scene.addChild(this.logo);
 
+	this.bean = new PIXI.Sprite(PIXI.loader.resources.bean.texture);
+	this.bean.anchor.x = 0.5;
+	this.bean.anchor.y = 0.5;
+	this.bean.y = -size.y;
+	this.scene.addChild(this.bean);
+
 
 	this.joined = [false,false,false,false];
 	this.ready = [false,false,false,false];
@@ -77,6 +83,9 @@ function Menu(_players){
 			this.joined[_players[i]] = true;
 		}
 	}
+
+	this.beanTimer = 0;
+	this.whoIsBeaned = -1;
 };
 
 Menu.prototype.destroy = function(){
@@ -84,7 +93,7 @@ Menu.prototype.destroy = function(){
 	this.scene.destroy();
 };
 
-Menu.prototype.update = function(){
+Menu.prototype.lobbyUpdate = function(){
 	if(!this.isDone()){
 		for(var i = 0; i < 4; ++i){
 			var input = getInput(i);
@@ -152,6 +161,22 @@ Menu.prototype.isDone = function(){
 		}
 	}
 	return numjoined > 1 && numjoined == numready;
+};
+
+Menu.prototype.beanUpdate = function(){
+	if(this.whoIsBeaned < 0){
+		var p = this.getPlayers();
+
+		this.whoIsBeaned = p[Math.floor(Math.random()*p.length)];
+		this.bean.x = (this.whoIsBeaned+0.5)/4 * size.x;
+	}
+	this.beanTimer += 1;
+	this.logo.y = lerp(this.logo.y, -size.y, ease(this.beanTimer/100));
+	this.bean.y = lerp(this.bean.y, size.y*0.75, ease(this.beanTimer/100));
+};
+
+Menu.prototype.isBeaned = function(){
+	return this.beanTimer > 200;
 };
 
 Menu.prototype.getPlayers = function(){

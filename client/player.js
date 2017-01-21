@@ -11,12 +11,21 @@ function Player( _id ){
     this.lapsRemaining = NUM_LAPS;
 
     this.container = new PIXI.Container();
+    
     this.swimmerSprite = new PIXI.Sprite( PIXI.loader.resources.swimmer.texture );
     this.swimmerSprite.anchor.x = 0.5;
     this.swimmerSprite.anchor.y = 0.5;
     this.swimmerSprite.width = size.x/5;
     this.swimmerSprite.scale.y = this.swimmerSprite.scale.x;
     this.container.addChild( this.swimmerSprite );
+
+    this.beanSprite = new PIXI.Sprite( PIXI.loader.resources.bean.texture );
+    this.beanSprite.anchor.x = 0.5;
+    this.beanSprite.anchor.y = 0.5;
+    this.beanSprite.width = size.x/5;
+    this.beanSprite.scale.y = this.beanSprite.scale.x;
+    this.container.addChild( this.beanSprite );
+
     this.nextStroke = 0;
     this.framesSinceCorrectStroke = 0;
     
@@ -46,6 +55,9 @@ function Player( _id ){
 
 
 Player.prototype.update = function(){
+    this.beanSprite.visible = this.hasBean;
+    this.swimmerSprite.visible = !this.hasBean;
+
     var laneSize = poolBounds.height * 0.25;
     this.lastX = this.container.x;
 
@@ -107,17 +119,10 @@ Player.prototype.update = function(){
     ){
         this.direction = -this.direction;
         this.lapsRemaining -= 1;
-        this.swimmerSprite.scale.x *= -1;
+        this.container.scale.x *= -1;
     }
     
     this.container.y = poolBounds.y + laneSize * (this.lane + 0.5);
-
-
-    if( this.hasBean ){
-        this.beanSprite.scale.x = 0.5;
-    }else{
-        this.beanSprite.scale.x = 1.0;
-    }
 }
 
 
@@ -134,7 +139,7 @@ Player.prototype.executeQueued = function(){
 Player.prototype.correctStroke = function(){
     this.speed += 0.5;
     this.framesSinceCorrectStroke = 0;
-    this.swimmerSprite.scale.y *= -1;
+    this.container.scale.y *= -1;
 }
 
 

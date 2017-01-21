@@ -71,6 +71,7 @@ $(document).ready(function(){
 		.add("arena","assets/img/arena.png")
 		.add("lane","assets/img/lane.png")
 		.add("swimmer","assets/img/swimmer.png")
+		.add("bean","assets/img/bean.png")
 
 		.add("lobby","assets/img/lobby.png")
 

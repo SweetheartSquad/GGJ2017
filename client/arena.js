@@ -30,9 +30,6 @@ function Arena(){
 
 	
 	this.addLaneCounts();
-
-
-	this.players[0].hasBean = true;
 }
 
 

@@ -1,6 +1,7 @@
 
 var MENU = 0;
 var GAME = 1;
+var BEAN = 2;
 
 var state = MENU;
 
@@ -64,10 +65,16 @@ function onResize() {
 function update(){
 
 	if( state === MENU ){
-		menu.update();
+		menu.lobbyUpdate();
 		if(menu.isDone()){
+			state = BEAN;
+		}
+	}if(state === BEAN){
+		menu.beanUpdate();
+		if(menu.isBeaned()){
 			//sounds[""].play();
 			arena = new Arena(menu.getPlayers());
+			arena.players[menu.whoIsBeaned].hasBean = true;
 			menu.destroy();
 			menu = false;
 			state = GAME;
@@ -92,7 +99,7 @@ function update(){
 
 function render(){
 
-	if(state === MENU){
+	if(state === MENU || state === BEAN){
 		menu.render();
 	}if(state === GAME){
 		arena.render();
