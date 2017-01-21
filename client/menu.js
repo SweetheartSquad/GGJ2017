@@ -13,32 +13,33 @@ function Menu(_players){
 	// create graphics
 	this.playerGraphics=[];
 	for(var i = 1; i <= 4; ++i){
-		var ready = new PIXI.Sprite(PIXI.loader.resources["joined_" + i].texture);
+		var lobby = new PIXI.Sprite(PIXI.loader.resources.lobby.texture);
+		this.scene.addChild(lobby);
+		lobby.anchor.x = 0.5;
+
+		var ready = new PIXI.Sprite(PIXI.loader.resources["ready_" + i].texture);
 		this.scene.addChild(ready);
 		ready.anchor.x = 0.5;
-		ready.anchor.y = 0.5;
 		ready.visible = false;
 
-		var joined = new PIXI.Sprite(PIXI.loader.resources["ready_" + i].texture);
+		var joined = new PIXI.Sprite(PIXI.loader.resources["joined_" + i].texture);
 		this.scene.addChild(joined);
 		joined.anchor.x = 0.5;
-		joined.anchor.y = 0.5;
 		joined.visible = false;
 
 		var readyText = new PIXI.Sprite(PIXI.loader.resources.readyText.texture);
 		this.scene.addChild(readyText);
 		readyText.anchor.x = 0.5;
-		readyText.anchor.y = 0.5;
 		readyText.visible = false;
 
 		var joinText = new PIXI.Sprite(PIXI.loader.resources.joinText.texture);
 		this.scene.addChild(joinText);
 		joinText.anchor.x = 0.5;
-		joinText.anchor.y = 0.5;
 		joinText.visible = false;
 
 		this.playerGraphics.push(
 			{
+				lobby: lobby,
 				ready: ready,
 				joined: joined,
 				readyText: readyText,
@@ -49,8 +50,8 @@ function Menu(_players){
 
 	// position graphics
 	for(var i = 0; i < 4; ++i){
-		this.playerGraphics[i].ready.x = this.playerGraphics[i].joined.x = this.playerGraphics[i].readyText.x = this.playerGraphics[i].joinText.x = size.x * 0.25 * (i+0.5);
-		this.playerGraphics[i].ready.y = this.playerGraphics[i].joined.y = this.playerGraphics[i].readyText.y = this.playerGraphics[i].joinText.y = size.y * 0.75;
+		this.playerGraphics[i].lobby.x = this.playerGraphics[i].ready.x = this.playerGraphics[i].joined.x = this.playerGraphics[i].readyText.x = this.playerGraphics[i].joinText.x = size.x * 0.25 * (i+0.5);
+		this.playerGraphics[i].lobby.y = this.playerGraphics[i].ready.y = this.playerGraphics[i].joined.y = this.playerGraphics[i].readyText.y = this.playerGraphics[i].joinText.y = 0;
 	}
 
 	// logo

@@ -72,18 +72,20 @@ $(document).ready(function(){
 		.add("lane","assets/img/lane.png")
 		.add("bean","assets/img/bean.png")
 
-		.add("joined_1","assets/img/lane.png")
-		.add("joined_2","assets/img/lane.png")
-		.add("joined_3","assets/img/lane.png")
-		.add("joined_4","assets/img/lane.png")
+		.add("lobby","assets/img/lobby.png")
 
-		.add("ready_1","assets/img/bean.png")
-		.add("ready_2","assets/img/bean.png")
-		.add("ready_3","assets/img/bean.png")
-		.add("ready_4","assets/img/bean.png")
+		.add("joined_1","assets/img/joined_1.png")
+		.add("joined_2","assets/img/joined_1.png")
+		.add("joined_3","assets/img/joined_1.png")
+		.add("joined_4","assets/img/joined_1.png")
 
-		.add("joinText","assets/img/bean.png")
-		.add("readyText","assets/img/BEAN-logo.png");
+		.add("ready_1","assets/img/ready_1.png")
+		.add("ready_2","assets/img/ready_1.png")
+		.add("ready_3","assets/img/ready_1.png")
+		.add("ready_4","assets/img/ready_1.png")
+
+		.add("joinText","assets/img/joinText.png")
+		.add("readyText","assets/img/readyText.png");
 	PIXI.loader
 		.on("progress", loadProgressHandler)
 		.load(init);
