@@ -30,6 +30,9 @@ function Arena(){
 
 	
 	this.addLaneCounts();
+
+
+	this.players[0].hasBean = true;
 }
 
 
@@ -59,7 +62,11 @@ Arena.prototype.update = function(){
 				))
 			){
 				this.players[i].pass(this.players[j]);
-				this.players[j].pass(this.players[i]);
+				var canPass = this.players[j].pass(this.players[i]);
+				console.log(canPass);
+				if( canPass ){
+					this.handlePass( this.players[i], this.players[j] );
+				}
 			}
 		}
 	}
@@ -72,6 +79,31 @@ Arena.prototype.update = function(){
 
 Arena.prototype.render = function(){
 	
+}
+
+
+Arena.prototype.handlePass = function(pA, pB){
+	if(pA.willDive == pB.willDive){
+		if( pA.willSwap ){
+			this.swap( pA, pB );	
+		}
+		if( pB.willSwap ){
+			this.swap( pA, pB );
+		}
+	}
+	pA.executeQueued();
+	pB.executeQueued();
+}
+
+Arena.prototype.swap = function( pA, pB ){
+		console.log("swap");
+	if( pA.hasBean ){
+		pB.hasBean = true;
+		pA.hasBean = false;
+	}else if( pB.hasBean ){
+		pA.hasBean = true;
+		pB.hasBean = false;
+	}
 }
 
 Arena.prototype.addPlayers = function(){

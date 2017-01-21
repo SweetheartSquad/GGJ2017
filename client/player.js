@@ -22,6 +22,8 @@ function Player( _id ){
     this.willSwap = false;
     this.canQueue = false;
 
+    this.hasBean = false;
+
     this.canPass = {};
 
     this.queueTimeout = 0;
@@ -63,6 +65,8 @@ Player.prototype.update = function(){
         this.willSwap = true;
         this.queueTimeout = 60;
     }
+
+    this.queueTimeout--;
 
     this.framesSinceCorrectStroke++;
 
@@ -106,6 +110,13 @@ Player.prototype.update = function(){
     }
     
     this.container.y = poolBounds.y + laneSize * (this.lane + 0.5);
+
+
+    if( this.hasBean ){
+        this.beanSprite.scale.x = 0.5;
+    }else{
+        this.beanSprite.scale.x = 1.0;
+    }
 }
 
 
@@ -116,23 +127,27 @@ Player.prototype.executeQueued = function(){
     if( this.willDive === true ){
         this.dive();
     }
-
+    this.queueTimeout = 0;
 }
 
 
 Player.prototype.pass = function( player ){
     var key = String(player.id);
-    if( !this.canPass.hasOwnProperty(key) || this.canPass[key] === true ){
+    if( !this.canPass.hasOwnProperty(key) 
+        || this.canPass[key] === true ){
        console.log(this.id,"passing", player.id);
        this.canPass[key] = false;
+       return true;
     }
+    return false;
 }
 
 
 Player.prototype.notifyPositions = function( players ){
     for ( var i = 0; i < players.length; i++ ){
         var key = String(players[i].id);
-        if ( !this.canPass.hasOwnProperty(key) || ( !this.canPass[key] && Math.abs( players[i].container.x - this. container.x ) > 100 )){
+        if ( !this.canPass.hasOwnProperty(key) 
+            || ( !this.canPass[key] && Math.abs( players[i].container.x - this. container.x ) > 100 )){
             this.canPass[key] = true;
         }
     }
