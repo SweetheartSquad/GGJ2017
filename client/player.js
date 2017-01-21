@@ -14,6 +14,14 @@ function Player( _id ){
     this.container.addChild( this.beanSprite );
     this.nextStroke = 0;
     this.framesSinceCorrectStroke = 0;
+    
+    this.willDive = false;
+    this.willSwap = false;
+    this.canQueue = false;
+
+    this.canPass = {};
+
+    this.queueTimeout = 0;
 
     var debug = new PIXI.Graphics();
     debug.beginFill(0xFF0000);
@@ -30,11 +38,29 @@ function Player( _id ){
 
 
 Player.prototype.update = function(){
-	var laneSize = poolBounds.height * 0.25;
+	
+    var laneSize = poolBounds.height * 0.25;
 	
     this.lastX = this.container.x;
 
     var input = getInput( this.id );
+
+    if( this.queueTimeout <= 0 ){
+        this.willDive = false;
+        this.willSwap = false;
+    } 
+
+
+    if( input.dive == true ){
+        this.willDive = true;
+        this.queueTimeout = 60;
+    }
+
+    
+    if( input.swap == true ){
+        this.willSwap = true;
+        this.queueTimeout = 60;
+    }
 
     this.framesSinceCorrectStroke++;
 
@@ -71,6 +97,7 @@ Player.prototype.update = function(){
     if( this.container.x + this.beanSprite.width/2 >= poolBounds.width + poolBounds.x ){
         this.direction = -1;
     }
+
     if( this.container.x - this.beanSprite.width/2 <= poolBounds.x ){
         this.direction = 1;
     }
@@ -78,6 +105,45 @@ Player.prototype.update = function(){
     this.container.y = poolBounds.y + laneSize * (this.lane + 0.5);
 }
 
+
+Player.prototype.executeQueued = function(){
+    if( this.willSwap === true ){
+        this.swap();
+    }
+    if( this.willDive === true ){
+        this.dive();
+    }
+
+}
+
+
+Player.prototype.pass = function( player ){
+    var canPass = false;
+    var key = String(player.id);
+    if( !this.passHistroy.hasOwnProperty(key)){
+        if( Math.abs(this.passHistroy[key] - this.container.x ) > 500 ){
+            canPass = true;
+        }
+    }else{
+        console.log("ASDsadsad");
+        canPass = true;
+    }
+    if( canPass ){
+        console.log(this.id,"passing", player.id);
+        this.passHistroy[key] = this.container.x;
+        // Do stuff
+    }
+}
+
+
+Player.prototype.dive = function(){
+    this.willDive = false;
+}
+
+
+Player.prototype.swap = function(){
+    this.willSwap = false;
+}
 
 
 Player.prototype.draw = function(){

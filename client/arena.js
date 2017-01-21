@@ -53,7 +53,8 @@ Arena.prototype.update = function(){
 					this.players[i].container.x < this.players[j].container.x
 				))
 			){
-				console.log(i,"passing",j);
+				this.players[i].pass(this.players[j]);
+				this.players[j].pass(this.players[i]);
 			}
 		}
 	}
