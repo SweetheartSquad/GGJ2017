@@ -31,7 +31,6 @@ function Player( _id ){
 
 
 Player.prototype.update = function(){
-	var laneSize = poolBounds.height * 0.25;
 
     this.lastX = this.container.x;
 
