@@ -6,12 +6,12 @@ function Arena(){
 	this.scene = new PIXI.Container();
 
 	game.addChild(this.scene);
-	
+
 	this.poolBounds = {
-		width: 1700,
-		height: 900,
-		x : 200,
-		y : 200
+		width: size.x - size.x/14*2,
+		height: size.y - size.y/4,
+		x : size.x/14,
+		y : size.y/6
 	}
 
 	var bg = new PIXI.Sprite( PIXI.loader.resources.arena.texture );
@@ -21,6 +21,14 @@ function Arena(){
 
 	this.addPlayers();
 	this.addLanes();
+
+	var g = new PIXI.Graphics();
+	g.beginFill(0,0);
+	g.lineStyle(3,0xFF0000);
+	g.drawRect(this.poolBounds.x, this.poolBounds.y, this.poolBounds.width, this.poolBounds.height);
+	g.endFill();
+
+	this.scene.addChild(g);
 }
 
 
@@ -50,7 +58,7 @@ Arena.prototype.addLanes = function(){
 			points: []
 		};
 		for (var x = 0; x < segments; ++x){
-			lane.points.push(new PIXI.Point(x/(segments-1)*size.x,(y+0.5)/4*size.y));
+			lane.points.push(new PIXI.Point(this.poolBounds.x + x/(segments-1)*this.poolBounds.width, 0));
 		}
 		lane.mesh = new PIXI.mesh.Rope(PIXI.loader.resources.lane.texture, lane.points);
 		this.scene.addChild( lane.mesh );
@@ -65,7 +73,7 @@ Arena.prototype.updateLanes = function(){
 	for(var i = 0; i < this.lanes.length; ++i){
 		var lane = this.lanes[i];
 		for(var p = 0; p < lane.points.length; ++p){
-			lane.points[p].y = (i+0.5)/3*size.y + Math.sin(i + p/2 + curTime/111)*3 + Math.sin(i/3 + p/4 + curTime/222)*3 + Math.sin(i/5 + p/6 + curTime/333)*3;
+			lane.points[p].y = this.poolBounds.y + (i+0.5)/4*this.poolBounds.height + Math.sin(i + p/2 + curTime/111)*3 + Math.sin(i/3 + p/4 + curTime/222)*3 + Math.sin(i/5 + p/6 + curTime/333)*3;
 		}
 	}
 }
