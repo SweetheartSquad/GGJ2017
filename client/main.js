@@ -2,7 +2,7 @@
 var MENU = 0;
 var GAME = 1;
 
-var state = GAME;
+var state = MENU;
 
 function main(){
 	curTime = Date.now()-startTime;
@@ -42,8 +42,7 @@ function init(){
 	}
 	laneSize = poolBounds.height * 0.25;
 
-	//menu = new Menu();
-	arena = new Arena();
+	menu = new Menu([0,1]);
 
 
 	// setup resize
@@ -66,10 +65,15 @@ function update(){
 
 	if( state === MENU ){
 		menu.update();
-	}else if( state === GAME ){
+		if(menu.isDone()){
+			//sounds[""].play();
+			arena = new Arena(menu.getPlayers());
+			menu.destroy();
+			menu = false;
+			state = GAME;
+		}
+	}if( state === GAME ){
 		arena.update();
-	}else{
-
 	}
 
 
@@ -90,7 +94,7 @@ function render(){
 
 	if(state === MENU){
 		menu.render();
-	}else if(state === GAME){
+	}if(state === GAME){
 		arena.render();
 	}
 
@@ -150,14 +154,14 @@ function getInput(_playerId){
 	if(gamepads.axisPast(gamepads.LSTICK_H, 0.5, 1, _playerId) || gamepads.isDown(gamepads.DPAD_RIGHT, _playerId)){ res.x += 1; }
 	if(gamepads.axisPast(gamepads.LSTICK_V, -0.5, -1, _playerId) || gamepads.isDown(gamepads.DPAD_UP, _playerId)){ res.y -= 1; }
 	if(gamepads.axisPast(gamepads.LSTICK_V, 0.5, 1, _playerId) || gamepads.isDown(gamepads.DPAD_DOWN, _playerId)){ res.y += 1; }
+	*/
 
-	if(gamepads.isJustDown(gamepads.A, _playerId) || gamepads.isJustDown(gamepads.Y, _playerId) ){ res.jump = true; }
-	if(gamepads.isJustDown(gamepads.X, _playerId) || gamepads.isJustDown(gamepads.B, _playerId) ){ res.shoot = true; }
+	if(gamepads.isJustDown(gamepads.A, _playerId) || gamepads.isJustDown(gamepads.Y, _playerId) ){ res.dive = true; }
+	if(gamepads.isJustDown(gamepads.X, _playerId) || gamepads.isJustDown(gamepads.B, _playerId) ){ res.swap = true; }
 
 	// clamp directional input (might be using both keyboard and controller)
 	res.x = clamp(-1, res.x, 1);
 	res.y = clamp(-1, res.y, 1);
-	*/
 
 	return res;
 }

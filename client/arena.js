@@ -116,29 +116,32 @@ Arena.prototype.addPlayers = function(){
 
 
 Arena.prototype.addLanes = function(){
-	var segments = 10;
+	var segments = 40;
 	for(var y = 1; y < 4; ++y){
 		var lane = {
+			container: new PIXI.Container(),
 			mesh: null,
 			points: []
 		};
+		lane.container.y = (poolBounds.y + y/4*poolBounds.height);
 		for (var x = 0; x < segments; ++x){
 			lane.points.push(new PIXI.Point(poolBounds.x + x/(segments-1)*poolBounds.width, 0));
-			lane.points[x].rootY = poolBounds.y + y/4*poolBounds.height;
 		}
 		lane.mesh = new PIXI.mesh.Rope(PIXI.loader.resources.lane.texture, lane.points);
-		this.scene.addChild( lane.mesh );
+		lane.mesh.height = size.y/15;
+		lane.container.addChild(lane.mesh);
+		this.scene.addChild( lane.container );
 		this.lanes.push(lane);
 	}
 }
 Arena.prototype.addLaneCounts = function(){
 	var font = new PIXI.TextStyle({
 		fontFamily: "Arial",
-		fontSize: "64px",
+		fontSize: size.x/10+"px",
 		align: "center",
 		fill: 0xFFFFFF,
 		stroke: 0x000000,
-		strokeThickness: 16
+		strokeThickness: 1
 	});
 	for(var i = 0; i < 4; ++i){
 		var laneCount = {
@@ -152,6 +155,8 @@ Arena.prototype.addLaneCounts = function(){
 		laneCount.texts[1].x = poolBounds.x+poolBounds.width + 20;
 		laneCount.texts[0].anchor.x = 0.5;
 		laneCount.texts[1].anchor.x = 0.5;
+		laneCount.texts[0].anchor.y = 0.5;
+		laneCount.texts[1].anchor.y = 0.5;
 		this.scene.addChild( laneCount.texts[0] );
 		this.scene.addChild( laneCount.texts[1] );
 		this.laneCounts.push(laneCount);
@@ -165,7 +170,7 @@ Arena.prototype.updateLanes = function(){
 	for(var i = 0; i < this.lanes.length; ++i){
 		var lane = this.lanes[i];
 		for(var p = 0; p < lane.points.length; ++p){
-			lane.points[p].y = lane.points[p].rootY + (Math.sin(i + p/2 + curTime/111)*3 + Math.sin(i/3 + p/4 + curTime/222)*3 + Math.sin(i/5 + p/6 + curTime/333)*3) * (1 - (Math.abs(p - lane.points.length/2))/(lane.points.length/2));
+			lane.points[p].y = (Math.sin(i + p/2 + curTime/111)*3 + Math.sin(i/3 + p/4 + curTime/222)*3 + Math.sin(i/5 + p/6 + curTime/333)*3) * (1 - (Math.abs(p - lane.points.length/2))/(lane.points.length/2));
 		}
 	}
 }
