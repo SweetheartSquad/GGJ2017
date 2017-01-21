@@ -41,7 +41,7 @@ Arena.prototype.update = function(){
 			// and
 			// their relative positions changed
 			if(
-				Math.abs(i-j) == 1 
+				Math.abs(this.players[i].lane - this.players[j].lane) == 1 
 				&&
 				((
 					this.players[i].lastX < this.players[j].lastX &&
