@@ -11,7 +11,7 @@ fullscreen = {
 	},
 
 	toggleFullscreen: function(){
-		if(!this.isFullscreen()){
+		if(!this.isFullscreen() && !this.modal){
 			this.createModal();
 		} else {
 			this.exitFullscreen();
