@@ -7,10 +7,17 @@ function Arena(){
 	game.addChild(this.scene);
 	
 	this.poolBounds = {
-		x: size.x * 0.85,
-		y: size.y * 0.85
+		width: 1700,
+		height: 900,
+		x : 200,
+		y : 200
 	}
 
+	var bg = new PIXI.Sprite( PIXI.loader.resources.arena.texture );
+	bg.width = size.x;
+	bg.height = size.y;
+	this.scene.addChild(bg);
+	
 	this.addPlayers();
 }
 

@@ -7,9 +7,9 @@ function Player(_id, _bounds){
     this.beanSprite.anchor.y = 0.5;
     this.container.addChild( this.beanSprite );
     
-	var laneSize = _bounds.y * 0.25;
-    this.container.y = laneSize * this.id - ( size.y - _bounds.y ) * 0.5 + this.beanSprite.height * 0.5;
-    this.container.x = this.beanSprite.width * 0.5 + size.x - _bounds.x;
+	var laneSize = _bounds.height * 0.25;
+    this.container.y = laneSize * this.id;
+    this.container.x = _bounds.x + this.beanSprite.width * 0.5;
 }
 
 
