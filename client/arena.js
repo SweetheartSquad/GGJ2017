@@ -120,6 +120,8 @@ Arena.prototype.addLaneCounts = function(){
 		laneCount.texts[1].x = poolBounds.x+poolBounds.width + 20;
 		laneCount.texts[0].anchor.x = 0.5;
 		laneCount.texts[1].anchor.x = 0.5;
+		laneCount.texts[0].anchor.y = 0.5;
+		laneCount.texts[1].anchor.y = 0.5;
 		this.scene.addChild( laneCount.texts[0] );
 		this.scene.addChild( laneCount.texts[1] );
 		this.laneCounts.push(laneCount);
