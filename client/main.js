@@ -140,10 +140,24 @@ function getInput(_playerId){
 		break;
 
 		case 1:
+		keyConfig.strokeLeft = keys.R;
+		keyConfig.strokeRight = keys.T;
+		keyConfig.dive = keys.F;
+		keyConfig.swap = keys.G;
+		break;
+
+		case 2:
 		keyConfig.strokeLeft = keys.U;
 		keyConfig.strokeRight = keys.I;
 		keyConfig.dive = keys.J;
 		keyConfig.swap = keys.K;
+		break;
+
+		case 3:
+		keyConfig.strokeLeft = keys.P;
+		keyConfig.strokeRight = keys.SQUARE_BRACKET_OPEN;
+		keyConfig.dive = keys.SEMI_COLON;
+		keyConfig.swap = keys.SINGLE_QUOTE;
 		break;
 
 		default:
