@@ -70,7 +70,7 @@ $(document).ready(function(){
 		.add("BEAN-logo","assets/img/BEAN-logo.png")
 		.add("arena","assets/img/arena.png")
 		.add("lane","assets/img/lane.png")
-		.add("bean","assets/img/bean.png")
+		.add("swimmer","assets/img/swimmer.png")
 
 		.add("lobby","assets/img/lobby.png")
 

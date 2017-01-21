@@ -11,10 +11,12 @@ function Player( _id ){
     this.lapsRemaining = NUM_LAPS;
 
     this.container = new PIXI.Container();
-    this.beanSprite = new PIXI.Sprite( PIXI.loader.resources.bean.texture );
-    this.beanSprite.anchor.x = 0.5;
-    this.beanSprite.anchor.y = 0.5;
-    this.container.addChild( this.beanSprite );
+    this.swimmerSprite = new PIXI.Sprite( PIXI.loader.resources.swimmer.texture );
+    this.swimmerSprite.anchor.x = 0.5;
+    this.swimmerSprite.anchor.y = 0.5;
+    this.swimmerSprite.width = size.x/5;
+    this.swimmerSprite.scale.y = this.swimmerSprite.scale.x;
+    this.container.addChild( this.swimmerSprite );
     this.nextStroke = 0;
     this.framesSinceCorrectStroke = 0;
     
@@ -34,7 +36,7 @@ function Player( _id ){
     debug.endFill();
     this.container.addChild(debug);
 
-    this.container.x = poolBounds.x + this.beanSprite.width * 0.5;
+    this.container.x = poolBounds.x + this.swimmerSprite.width * 0.5;
 
     this.speed = DEFAULT_SPEED;
     this.direction = 1;
@@ -43,7 +45,6 @@ function Player( _id ){
 
 
 Player.prototype.update = function(){
-	
     var laneSize = poolBounds.height * 0.25;
     this.lastX = this.container.x;
 
@@ -71,15 +72,13 @@ Player.prototype.update = function(){
     this.framesSinceCorrectStroke++;
 
     if( (this.nextStroke === 0 || this.nextStroke === -1) && input.strokeLeft ){
-        this.speed += 0.5;
         this.nextStroke = 1;
-        this.framesSinceCorrectStroke = 0;
+        this.correctStroke();
     }
     
     if( (this.nextStroke === 0 || this.nextStroke === 1) && input.strokeRight ){
-        this.speed += 0.5;
         this.nextStroke = -1;
-        this.framesSinceCorrectStroke = 0;
+        this.correctStroke();
     }
 
     if( this.nextStroke === 1 && input.strokeLeft ){
@@ -101,12 +100,13 @@ Player.prototype.update = function(){
     this.container.x += this.speed * this.direction;
     
     if(
-    	( this.container.x + this.beanSprite.width/2 >= poolBounds.width + poolBounds.x )
+    	( this.container.x + this.swimmerSprite.width/2 >= poolBounds.width + poolBounds.x )
     	||
-        ( this.container.x - this.beanSprite.width/2 <= poolBounds.x )
+        ( this.container.x - this.swimmerSprite.width/2 <= poolBounds.x )
     ){
         this.direction = -this.direction;
         this.lapsRemaining -= 1;
+        this.swimmerSprite.scale.x *= -1;
     }
     
     this.container.y = poolBounds.y + laneSize * (this.lane + 0.5);
@@ -128,6 +128,12 @@ Player.prototype.executeQueued = function(){
         this.dive();
     }
     this.queueTimeout = 0;
+}
+
+Player.prototype.correctStroke = function(){
+    this.speed += 0.5;
+    this.framesSinceCorrectStroke = 0;
+    this.swimmerSprite.scale.y *= -1;
 }
 
 
