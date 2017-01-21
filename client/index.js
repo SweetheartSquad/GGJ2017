@@ -70,7 +70,20 @@ $(document).ready(function(){
 		.add("BEAN-logo","assets/img/BEAN-logo.png")
 		.add("arena","assets/img/arena.png")
 		.add("lane","assets/img/lane.png")
-		.add("bean","assets/img/bean.png");
+		.add("bean","assets/img/bean.png")
+
+		.add("joined_1","assets/img/lane.png")
+		.add("joined_2","assets/img/lane.png")
+		.add("joined_3","assets/img/lane.png")
+		.add("joined_4","assets/img/lane.png")
+
+		.add("ready_1","assets/img/bean.png")
+		.add("ready_2","assets/img/bean.png")
+		.add("ready_3","assets/img/bean.png")
+		.add("ready_4","assets/img/bean.png")
+
+		.add("joinText","assets/img/bean.png")
+		.add("readyText","assets/img/BEAN-logo.png");
 	PIXI.loader
 		.on("progress", loadProgressHandler)
 		.load(init);

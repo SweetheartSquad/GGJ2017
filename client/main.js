@@ -2,7 +2,7 @@
 var MENU = 0;
 var GAME = 1;
 
-var state = GAME;
+var state = MENU;
 
 function main(){
 	curTime = Date.now()-startTime;
@@ -42,8 +42,7 @@ function init(){
 	}
 	laneSize = poolBounds.height * 0.25;
 
-	//menu = new Menu();
-	arena = new Arena();
+	menu = new Menu([0,1]);
 
 
 	// setup resize
@@ -66,10 +65,15 @@ function update(){
 
 	if( state === MENU ){
 		menu.update();
-	}else if( state === GAME ){
+		if(menu.isDone()){
+			//sounds[""].play();
+			arena = new Arena(menu.getPlayers());
+			menu.destroy();
+			menu = false;
+			state = GAME;
+		}
+	}if( state === GAME ){
 		arena.update();
-	}else{
-
 	}
 
 
@@ -90,7 +94,7 @@ function render(){
 
 	if(state === MENU){
 		menu.render();
-	}else if(state === GAME){
+	}if(state === GAME){
 		arena.render();
 	}
 
