@@ -29,6 +29,7 @@ function Player( _id ){
 
 
 Player.prototype.update = function(){
+    this.lastX = this.container.x;
     
     var input = getInput( this.id );
 
