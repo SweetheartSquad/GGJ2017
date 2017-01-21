@@ -164,6 +164,11 @@ Menu.prototype.isDone = function(){
 };
 
 Menu.prototype.beanUpdate = function(){
+	for(var i = 0; i < 4; ++i){
+		this.playerGraphics[i].joinText.visible = false;
+		this.playerGraphics[i].readyText.visible = false;
+	}
+
 	if(this.whoIsBeaned < 0){
 		var p = this.getPlayers();
 
