@@ -36,9 +36,10 @@ $(document).ready(function(){
 		resolution:1,
 		roundPixels:true,
 		clearBeforeRender:true,
-		autoResize:false
+		autoResize:false,
 	});
-	renderer.backgroundColor = 0x000000;
+	
+	renderer.backgroundColor = 0x1099bb;
 
 	PIXI.SCALE_MODES.DEFAULT = PIXI.SCALE_MODES.NEAREST;
 	PIXI.WRAP_MODES.DEFAULT = PIXI.WRAP_MODES.MIRRORED_REPEAT;
