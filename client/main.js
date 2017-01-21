@@ -30,10 +30,9 @@ function init(){
 	screen_filter.padding = 0;
 	renderSprite.filterArea = new PIXI.Rectangle(0,0,size.x,size.y);
 
-	//renderSprite.filters = [screen_filter];
+	renderSprite.filters = [screen_filter];
 
 	transition = 0;
-	transitionDirection = 1;
 
 	poolBounds = {
 		width: size.x - size.x/14*2,
@@ -56,14 +55,12 @@ function init(){
 
 function onResize() {
 	_resize();
-	//screen_filter.uniforms["screen"] = [size.x,size.y];
-	//screen_filter.uniforms["bufferSize"] = [nextPowerOfTwo(size.x),nextPowerOfTwo(size.y)];
-
+	screen_filter.uniforms["screenSize"] = [size.x,size.y];
+	screen_filter.uniforms["bufferSize"] = [nextPowerOfTwo(size.x),nextPowerOfTwo(size.y)];
 	console.log("Resized",size,scaleMultiplier,[size.x*scaleMultiplier,size.y*scaleMultiplier]);
 }
 
 function update(){
-
 	if( state === MENU ){
 		menu.lobbyUpdate();
 		if(menu.isDone()){
@@ -72,14 +69,19 @@ function update(){
 	}if(state === BEAN){
 		menu.beanUpdate();
 		if(menu.isBeaned()){
-			//sounds[""].play();
-			arena = new Arena(menu.getPlayers());
-			arena.players[menu.whoIsBeaned].hasBean = true;
-			menu.destroy();
-			menu = false;
-			state = GAME;
+			if(transition < 1){
+				transition += 0.01;
+			}else{
+				//sounds[""].play();
+				arena = new Arena(menu.getPlayers());
+				arena.players[menu.whoIsBeaned].hasBean = true;
+				menu.destroy();
+				menu = false;
+				state = GAME;
+			}
 		}
 	}if( state === GAME ){
+		transition = lerp(transition,0,0.05);
 		arena.update();
 	}
 
@@ -98,6 +100,9 @@ function update(){
 
 
 function render(){
+
+	screen_filter.uniforms["transition"] = transition;
+	screen_filter.uniforms["curTime"] = curTime;
 
 	if(state === MENU || state === BEAN){
 		menu.render();
