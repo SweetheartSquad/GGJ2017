@@ -1,6 +1,7 @@
 
 
 DEFAULT_SPEED = 2;
+SPEED_RESET_FRAMES = 60;
 
 function Player( _id ){
     
@@ -10,7 +11,8 @@ function Player( _id ){
     this.beanSprite.anchor.x = 0.5;
     this.beanSprite.anchor.y = 0.5;
     this.container.addChild( this.beanSprite );
-    this.lastStroke = 0;
+    this.nextStroke = 0;
+    this.framesSinceCorrectStroke = 0;
 
     var debug = new PIXI.Graphics();
     debug.beginFill(0xFF0000);
@@ -32,12 +34,32 @@ Player.prototype.update = function(){
     
     var input = getInput( this.id );
 
-    if( this.lastStroke !== -1 && input.strokeLeft ){
+    this.framesSinceCorrectStroke++;
+
+    if( (this.nextStroke === 0 || this.nextStroke === -1) && input.strokeLeft ){
         this.speed += 0.5;
+        this.nextStroke = 1;
+        this.framesSinceCorrectStroke = 0;
     }
     
-    if( this.lastStroke !== 1 && input.strokeLeft ){
+    if( (this.nextStroke === 0 || this.nextStroke === 1) && input.strokeRight ){
         this.speed += 0.5;
+        this.nextStroke = -1;
+        this.framesSinceCorrectStroke = 0;
+    }
+
+    if( this.nextStroke === 1 && input.strokeLeft ){
+        this.speed -= 0.25;
+    }
+
+    
+    if( this.nextStroke === -1 && input.strokeRight ){
+        this.speed -= 0.25;
+    }
+
+    if( this.framesSinceCorrectStroke >= SPEED_RESET_FRAMES ){
+        this.framesSinceCorrectStroke = 0;
+        this.nextStroke = 0;
     }
 
     this.speed = lerp( this.speed, DEFAULT_SPEED, 0.025 );

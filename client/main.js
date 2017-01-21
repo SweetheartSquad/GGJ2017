@@ -132,7 +132,7 @@ function getInput(_playerId){
 	}
 
 	if(keys.isJustDown(keyConfig.strokeLeft)){ res.strokeLeft = true};
-	if(keys.isJustDown(keyConfig.strokeRight)){ res.strokeLeft = true};
+	if(keys.isJustDown(keyConfig.strokeRight)){ res.strokeRight = true};
 	if(keys.isJustDown(keyConfig.dive)){ res.dive = true};
 	if(keys.isJustDown(keyConfig.swap)){ res.swap = true};
 
