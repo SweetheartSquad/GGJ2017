@@ -14,7 +14,7 @@ function Player( _id ){
     this.container.addChild(debug);
 
 	var laneSize = poolBounds.height * 0.25;
-    this.container.y = laneSize * this.id;
+    this.container.y = poolBounds.y + laneSize * (this.id + 0.5);
     this.container.x = poolBounds.x + this.beanSprite.width * 0.5;
 
     this.speed = 5;

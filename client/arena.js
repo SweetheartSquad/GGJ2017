@@ -38,7 +38,7 @@ Arena.prototype.render = function(){
 }
 
 Arena.prototype.addPlayers = function(){
-	for( var i = 1; i < 5; i++ ){
+	for( var i = 0; i < 4; i++ ){
 		var player = new Player( i );
 		this.players.push( player );
 		this.scene.addChild( player.container );
@@ -55,6 +55,7 @@ Arena.prototype.addLanes = function(){
 		};
 		for (var x = 0; x < segments; ++x){
 			lane.points.push(new PIXI.Point(poolBounds.x + x/(segments-1)*poolBounds.width, 0));
+			lane.points[x].rootY = poolBounds.y + y/4*poolBounds.height;
 		}
 		lane.mesh = new PIXI.mesh.Rope(PIXI.loader.resources.lane.texture, lane.points);
 		this.scene.addChild( lane.mesh );
@@ -69,7 +70,7 @@ Arena.prototype.updateLanes = function(){
 	for(var i = 0; i < this.lanes.length; ++i){
 		var lane = this.lanes[i];
 		for(var p = 0; p < lane.points.length; ++p){
-			lane.points[p].y = poolBounds.y + (i+0.5)/4*poolBounds.height + Math.sin(i + p/2 + curTime/111)*3 + Math.sin(i/3 + p/4 + curTime/222)*3 + Math.sin(i/5 + p/6 + curTime/333)*3;
+			lane.points[p].y = lane.points[p].rootY + (Math.sin(i + p/2 + curTime/111)*3 + Math.sin(i/3 + p/4 + curTime/222)*3 + Math.sin(i/5 + p/6 + curTime/333)*3) * (1 - (Math.abs(p - lane.points.length/2))/(lane.points.length/2));
 		}
 	}
 }

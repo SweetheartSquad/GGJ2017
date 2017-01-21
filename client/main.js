@@ -38,7 +38,7 @@ function init(){
 		width: size.x - size.x/14*2,
 		height: size.y - size.y/4,
 		x : size.x/14,
-		y : size.y/6
+		y : size.y/7
 	}
 
 	//menu = new Menu();
