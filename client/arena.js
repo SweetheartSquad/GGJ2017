@@ -5,13 +5,19 @@ function Arena(){
 
 	game.addChild(this.scene);
 
-	var bg = new PIXI.Sprite( PIXI.loader.resources.arena.texture );
-	bg.width = size.x;
-	bg.height = size.y;
+	var bg = new PIXI.Graphics();
+	bg.beginFill(0xFFFFFF);
+	bg.drawRect(0,0,size.x,size.y);
+	bg.endFill();
 	this.scene.addChild(bg);
 
 	this.addPlayers();
 	this.addLanes();
+
+	var arena = new PIXI.Sprite( PIXI.loader.resources.arena.texture );
+	arena.width = size.x;
+	arena.height = size.y;
+	this.scene.addChild(arena);
 
 	var g = new PIXI.Graphics();
 	g.beginFill(0,0);

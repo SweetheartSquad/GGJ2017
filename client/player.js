@@ -66,10 +66,10 @@ Player.prototype.update = function(){
     
     this.container.x += this.speed * this.direction;
     
-    if( this.container.x + this.beanSprite.width >= poolBounds.width + poolBounds.x ){
+    if( this.container.x + this.beanSprite.width/2 >= poolBounds.width + poolBounds.x ){
         this.direction = -1;
     }
-    if( this.container.x - this.beanSprite.width <= poolBounds.x ){
+    if( this.container.x - this.beanSprite.width/2 <= poolBounds.x ){
         this.direction = 1;
     }
 }
