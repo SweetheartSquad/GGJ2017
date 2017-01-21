@@ -1,11 +1,8 @@
 
 
 DEFAULT_SPEED = 2;
-<<<<<<< HEAD
 SPEED_RESET_FRAMES = 60;
-=======
 NUM_LAPS = 5;
->>>>>>> 5d6c9d4dbdb02245559ed2f1a27da9d7446af269
 
 function Player( _id ){
     
@@ -124,20 +121,20 @@ Player.prototype.executeQueued = function(){
 
 
 Player.prototype.pass = function( player ){
-    var canPass = false;
     var key = String(player.id);
-    if( !this.passHistroy.hasOwnProperty(key)){
-        if( Math.abs(this.passHistroy[key] - this.container.x ) > 500 ){
-            canPass = true;
-        }
-    }else{
-        console.log("ASDsadsad");
-        canPass = true;
+    if( !this.canPass.hasOwnProperty(key) || this.canPass[key] === true ){
+       console.log(this.id,"passing", player.id);
+       this.canPass[key] = false;
     }
-    if( canPass ){
-        console.log(this.id,"passing", player.id);
-        this.passHistroy[key] = this.container.x;
-        // Do stuff
+}
+
+
+Player.prototype.notifyPositions = function( players ){
+    for ( var i = 0; i < players.length; i++ ){
+        var key = String(players[i].id);
+        if ( !this.canPass.hasOwnProperty(key) || ( !this.canPass[key] && Math.abs( players[i].container.x - this. container.x ) > 100 )){
+            this.canPass[key] = true;
+        }
     }
 }
 

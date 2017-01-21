@@ -39,6 +39,7 @@ Arena.prototype.update = function(){
 	}
 
 	for( var i = 0; i < this.players.length; i++ ){
+		this.players[i].notifyPositions(this.players);
 		for( var j = i+1; j < this.players.length; j++ ){
 			// if
 			// players next to each other
