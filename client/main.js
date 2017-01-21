@@ -40,6 +40,7 @@ function init(){
 		x : size.x/14,
 		y : size.y/7
 	}
+	laneSize = poolBounds.height * 0.25;
 
 	//menu = new Menu();
 	arena = new Arena();
