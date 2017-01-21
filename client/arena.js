@@ -4,6 +4,11 @@ function Arena(){
 
 	game.addChild(this.scene);
 
+	var bg = new PIXI.Sprite( PIXI.loader.resources.arena.texture );
+	bg.width = size.x;
+	bg.height = size.y;
+	this.scene.addChild(bg);
+
 	var player = new Player();
 	this.scene.addChild( player.container );
 
