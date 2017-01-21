@@ -36,8 +36,14 @@ Arena.prototype.update = function(){
 
 	for( var i = 0; i < this.players.length; i++ ){
 		for( var j = i+1; j < this.players.length; j++ ){
+			// if
+			// players next to each other
+			// and
+			// their relative positions changed
 			if(
-				(
+				Math.abs(i-j) == 1 
+				&&
+				((
 					this.players[i].lastX < this.players[j].lastX &&
 					this.players[i].container.x > this.players[j].container.x 
 				)
@@ -45,7 +51,7 @@ Arena.prototype.update = function(){
 				(
 					this.players[i].lastX > this.players[j].lastX &&
 					this.players[i].container.x < this.players[j].container.x
-				)
+				))
 			){
 				console.log(i,"passing",j);
 			}
