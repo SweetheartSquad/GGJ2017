@@ -97,7 +97,7 @@ Player.prototype.update = function(){
 
     this.speed = lerp( this.speed, DEFAULT_SPEED, 0.025 );
     
-    this.container.x += this.speed * this.direction;
+    this.container.x += this.speed * this.direction * (size.x/1920);
     
     if(
     	( this.container.x + this.swimmerSprite.width/2 >= poolBounds.width + poolBounds.x )
