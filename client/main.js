@@ -161,28 +161,25 @@ function getInput(_playerId){
 		break;
 
 		default:
-		// no keyboard controls past first two players
 	}
 
-	if(keys.isJustDown(keyConfig.strokeLeft)){ res.strokeLeft = true};
-	if(keys.isJustDown(keyConfig.strokeRight)){ res.strokeRight = true};
-	if(keys.isJustDown(keyConfig.dive)){ res.dive = true};
-	if(keys.isJustDown(keyConfig.swap)){ res.swap = true};
+	if(keys.isJustDown(keyConfig.strokeLeft)){ res.strokeLeft = true; }
+	if(keys.isJustDown(keyConfig.strokeRight)){ res.strokeRight = true; }
+	if(keys.isJustDown(keyConfig.dive)){ res.dive = true; }
+	if(keys.isJustDown(keyConfig.swap)){ res.swap = true; }
 
 	/*
 	// gamepad input
-	if(gamepads.axisPast(gamepads.LSTICK_H, -0.5, -1, _playerId) || gamepads.isDown(gamepads.DPAD_LEFT, _playerId)){ res.x -= 1; }
+	|| gamepads.isDown(gamepads.DPAD_LEFT, _playerId)){ res.x -= 1; }
 	if(gamepads.axisPast(gamepads.LSTICK_H, 0.5, 1, _playerId) || gamepads.isDown(gamepads.DPAD_RIGHT, _playerId)){ res.x += 1; }
 	if(gamepads.axisPast(gamepads.LSTICK_V, -0.5, -1, _playerId) || gamepads.isDown(gamepads.DPAD_UP, _playerId)){ res.y -= 1; }
 	if(gamepads.axisPast(gamepads.LSTICK_V, 0.5, 1, _playerId) || gamepads.isDown(gamepads.DPAD_DOWN, _playerId)){ res.y += 1; }
 	*/
 
+	if(gamepads.isJustDown(gamepads.LT, _playerId)){ res.strokeLeft = true; }
+	if(gamepads.isJustDown(gamepads.RT, _playerId)){ res.strokeRight = true; }
 	if(gamepads.isJustDown(gamepads.A, _playerId) || gamepads.isJustDown(gamepads.Y, _playerId) ){ res.dive = true; }
 	if(gamepads.isJustDown(gamepads.X, _playerId) || gamepads.isJustDown(gamepads.B, _playerId) ){ res.swap = true; }
-
-	// clamp directional input (might be using both keyboard and controller)
-	res.x = clamp(-1, res.x, 1);
-	res.y = clamp(-1, res.y, 1);
 
 	return res;
 }
