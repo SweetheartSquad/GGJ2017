@@ -181,7 +181,7 @@ Menu.prototype.beanUpdate = function(){
 };
 
 Menu.prototype.isBeaned = function(){
-	return this.beanTimer > 200;
+	return this.beanTimer > 50;
 };
 
 Menu.prototype.getPlayers = function(){
