@@ -84,7 +84,7 @@ function update(){
 	}
 
 
-	if(keys.isJustDown(keys.F)){
+	if(keys.isJustDown(keys.ENTER)){
 		fullscreen.toggleFullscreen();
 	}if(keys.isJustDown(keys.M)){
 		toggleMute();
