@@ -34,6 +34,13 @@ function init(){
 	transition = 0;
 	transitionDirection = 1;
 
+	poolBounds = {
+		width: size.x - size.x/14*2,
+		height: size.y - size.y/4,
+		x : size.x/14,
+		y : size.y/6
+	}
+
 	//menu = new Menu();
 	arena = new Arena();
 
