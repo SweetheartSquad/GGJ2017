@@ -93,7 +93,14 @@ Arena.prototype.handlePass = function(pA, pB){
 }
 
 Arena.prototype.swap = function( pA, pB ){
-		console.log("swap");
+	console.log("swap");
+	
+	// swap lanes
+	var la = pA.lane;
+	pA.lane = pB.lane;
+	pB.lane = la;
+
+	// if a player has the bean, also swap that
 	if( pA.hasBean ){
 		pB.hasBean = true;
 		pA.hasBean = false;
