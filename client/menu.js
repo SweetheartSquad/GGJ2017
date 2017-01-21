@@ -52,6 +52,9 @@ function Menu(_players){
 	for(var i = 0; i < 4; ++i){
 		this.playerGraphics[i].lobby.x = this.playerGraphics[i].ready.x = this.playerGraphics[i].joined.x = this.playerGraphics[i].readyText.x = this.playerGraphics[i].joinText.x = size.x * 0.25 * (i+0.5);
 		this.playerGraphics[i].lobby.y = this.playerGraphics[i].ready.y = this.playerGraphics[i].joined.y = this.playerGraphics[i].readyText.y = this.playerGraphics[i].joinText.y = 0;
+
+		this.playerGraphics[i].lobby.width = this.playerGraphics[i].ready.width = this.playerGraphics[i].joined.width = this.playerGraphics[i].readyText.width = this.playerGraphics[i].joinText.width = size.x * 0.25;
+		this.playerGraphics[i].lobby.height = this.playerGraphics[i].ready.height = this.playerGraphics[i].joined.height = this.playerGraphics[i].readyText.height = this.playerGraphics[i].joinText.height = size.y;
 	}
 
 	// logo
@@ -59,7 +62,9 @@ function Menu(_players){
 	this.logo.anchor.x = 0.5;
 	this.logo.anchor.y = 0.5;
 	this.logo.position.x = size.x/2;
-	this.logo.position.y = size.y/2;
+	this.logo.position.y = size.y/3;
+	this.logo.width = size.x*0.7;
+	this.logo.scale.y = this.logo.scale.x;
 	this.scene.addChild(this.logo);
 
 
