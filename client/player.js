@@ -31,8 +31,9 @@ function Player( _id ){
     this.queueTimeout = 0;
 
     var debug = new PIXI.Graphics();
-    debug.beginFill(0xFF0000);
-    debug.drawCircle(0,0,60);
+    debug.beginFill(0,0);
+    debug.lineStyle(1,0xFF0000);
+    debug.drawCircle(0,0,this.swimmerSprite.width/3);
     debug.endFill();
     this.container.addChild(debug);
 
