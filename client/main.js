@@ -98,54 +98,38 @@ function render(){
 
 function getInput(_playerId){
 	var res = {
-		x: 0,
-		y: 0,
-
-		jump: false,
-		shoot: false
+		strokeLeft: false,
+		strokeRight: false,
+		dive: false,
+		swap: false
 	};
 
 	// keyboard input
 	var keyConfig = {
-		left: null,
-		right: null,
-		up: null,
-		down: null,
-		jump: null,
-		shoot: null
+		strokeLeft: null,
+		strokeRight: null,
+		dive: null,
+		swap: null
 	};
 
 	switch(_playerId){
-		case 0:
-		keyConfig.left = keys.A;
-		keyConfig.right = keys.D;
-		keyConfig.up = keys.W;
-		keyConfig.down = keys.S;
-		keyConfig.jump = keys.E;
-		keyConfig.shoot = keys.R;
-		break;
-
 		case 1:
-		keyConfig.left = keys.J;
-		keyConfig.right = keys.L;
-		keyConfig.up = keys.I;
-		keyConfig.down = keys.K;
-		keyConfig.jump = keys.O;
-		keyConfig.shoot = keys.P;
+		keyConfig.strokeLeft = keys.Q;
+		keyConfig.strokeRight = keys.W;
+		keyConfig.dive = keys.A;
+		keyConfig.swap = keys.S;
 		break;
 
 		default:
 		// no keyboard controls past first two players
 	}
 
-	if(keys.isDown(keyConfig.left)){ res.x -= 1; }
-	if(keys.isDown(keyConfig.right)){ res.x += 1; }
-	if(keys.isDown(keyConfig.up)){ res.y -= 1; }
-	if(keys.isDown(keyConfig.down)){ res.y += 1; }
+	if(keys.isJustDown(keyConfig.strokeLeft)){ res.strokeLeft = true};
+	if(keys.isJustDown(keyConfig.strokeRight)){ res.strokeLeft = true};
+	if(keys.isJustDown(keyConfig.dive)){ res.dive = true};
+	if(keys.isJustDown(keyConfig.swap)){ res.swap = true};
 
-	if(keys.isJustDown(keyConfig.jump)){ res.jump = true};
-	if(keys.isJustDown(keyConfig.shoot)){ res.shoot = true};
-
+	/*
 	// gamepad input
 	if(gamepads.axisPast(gamepads.LSTICK_H, -0.5, -1, _playerId) || gamepads.isDown(gamepads.DPAD_LEFT, _playerId)){ res.x -= 1; }
 	if(gamepads.axisPast(gamepads.LSTICK_H, 0.5, 1, _playerId) || gamepads.isDown(gamepads.DPAD_RIGHT, _playerId)){ res.x += 1; }
@@ -158,6 +142,7 @@ function getInput(_playerId){
 	// clamp directional input (might be using both keyboard and controller)
 	res.x = clamp(-1, res.x, 1);
 	res.y = clamp(-1, res.y, 1);
+	*/
 
 	return res;
 }

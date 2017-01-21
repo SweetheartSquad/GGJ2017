@@ -24,11 +24,9 @@ function Arena(){
 
 
 Arena.prototype.update = function(){
-
 	for( var i = 0; i < this.players.length; i++ ){
 		this.players[i].update();
 	}
-
 	this.updateLanes();
 } 
 
