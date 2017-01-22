@@ -47,14 +47,14 @@ $(document).ready(function(){
 	// add the canvas to the html document
 	$("#display").prepend(renderer.view);
 
-/*
-	sounds["transition"]=new Howl({
-		urls:["assets/audio/fweep.ogg"],
-		autoplay:false,
-		loop:false,
+
+	sounds["bgm"]=new Howl({
+		urls:["assets/audio/DIRTY BEAN xXx[ROUGH]xXx.mp3"],
+		autoplay:true,
+		loop:true,
 		volume:1
 	});
-*/
+
 
 	// create render texture
 	renderTexture = PIXI.RenderTexture.create(size.x,size.y,PIXI.SCALE_MODES.NEAREST,1);
