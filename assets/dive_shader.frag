@@ -10,7 +10,7 @@ vec4 tex(vec2 _uv){
 	vec4 fg3 = fg1;
 
 	fg2.rgb = mix(fg1.rgb, vec3(0.0, 0.0, 0.2), fg1.a);
-	fg3.rgb = mix(fg1.rgb, vec3(1.0, 0.0, 0.0), fg1.a);
+	fg3.rgb = mix(fg1.rgb, vec3(0.75, 0.0, max(fg2.b,fg1.b)), fg1.a);
 	fg2.a -= 0.25;
 
 	return mix(mix(fg1,fg2,dive), fg3, swap);
