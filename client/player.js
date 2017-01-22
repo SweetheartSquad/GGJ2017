@@ -101,12 +101,18 @@ Player.prototype.update = function(){
     var input = getInput( this.id );
 
     if( this.queueTimeout <= 0 ){
+    	if(this.willDive){
+    		sounds["dive"].play();
+    	}
         this.willDive = false;
         this.willSwap = false;
     } 
 
 
     if( input.dive == true ){
+    	if(!this.willDive){
+    		sounds["dive"].play();
+    	}
         this.willDive = true;
         this.queueTimeout = 60;
     }
@@ -208,6 +214,7 @@ Player.prototype.correctStroke = function(){
     this.framesSinceCorrectStroke = 0;
     this.container.scale.y *= -1;
     this.numberText.scale.y *= -1;
+    sounds["splash"].play();
 }
 
 

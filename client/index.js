@@ -52,7 +52,7 @@ $(document).ready(function(){
 		urls:["assets/audio/DIRTY BEAN xXx[ROUGH]xXx.mp3"],
 		autoplay:true,
 		loop:true,
-		volume:1
+		volume:0.25
 	});
 	sounds["lap"]=new Howl({
 		urls:["assets/audio/0.wav"],
@@ -80,6 +80,36 @@ $(document).ready(function(){
 	});
 	sounds["bean"]=new Howl({
 		urls:["assets/audio/4.wav"],
+		autoplay:false,
+		loop:false,
+		volume:1
+	});
+	sounds["dive"]=new Howl({
+		urls:["assets/audio/5.wav"],
+		autoplay:false,
+		loop:false,
+		volume:1
+	});
+	sounds["splash"]=new Howl({
+		urls:["assets/audio/6.wav"],
+		autoplay:false,
+		loop:false,
+		volume:1
+	});
+	sounds["pass"]=new Howl({
+		urls:["assets/audio/7.wav"],
+		autoplay:false,
+		loop:false,
+		volume:1
+	});
+	sounds["start"]=new Howl({
+		urls:["assets/audio/8.wav"],
+		autoplay:false,
+		loop:false,
+		volume:1
+	});
+	sounds["lose"]=new Howl({
+		urls:["assets/audio/9.wav"],
 		autoplay:false,
 		loop:false,
 		volume:1
