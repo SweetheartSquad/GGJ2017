@@ -6,6 +6,7 @@ uniform vec2 screenSize;
 uniform vec2 bufferSize;
 uniform float curTime;
 uniform float transition;
+uniform float amount;
 
 vec3 tex(vec2 uv){
 	vec2 uvs = uv*bufferSize/screenSize;
@@ -14,7 +15,7 @@ vec3 tex(vec2 uv){
 	uvs = mod(uvs,1.0);
 	uvs = uvs/bufferSize*screenSize;
 	vec3 res = texture2D(uSampler, uvs).rgb;
-	res = mix(res, vec3(0.0,1.0,1.0), transition);
+	res = mix(res, vec3(0.0,1.0,1.0), transition*amount);
 	return res;
 }
 
@@ -28,16 +29,16 @@ void main(void){
 	v += 0.002*sin(uvs.x*40.0 + curTime/900.0)*cos(uvs.y*50.0 + curTime/600.0);
 	fg = tex(uvs);
 
-	fg = mix(fg, tex(uvs + vec2(v,v)), 0.2);
-	fg = mix(fg, tex(uvs + vec2(-v,v)), 0.2);
-	fg = mix(fg, tex(uvs + vec2(v,-v)), 0.2);
-	fg = mix(fg, tex(uvs + vec2(-v,-v)), 0.2);
-	fg += abs(vec3(v*50.0));
+	fg = mix(fg, tex(uvs + vec2(v,v)), 0.2*amount);
+	fg = mix(fg, tex(uvs + vec2(-v,v)), 0.2*amount);
+	fg = mix(fg, tex(uvs + vec2(v,-v)), 0.2*amount);
+	fg = mix(fg, tex(uvs + vec2(-v,-v)), 0.2*amount);
+	fg += abs(vec3(v*50.0*amount));
 	if(fg.b > 0.5){
 		if(fg.r+fg.g < 0.5){
-			fg.g += 1.0;
+			fg.g += 1.0*amount;
 		}else{
-			fg.g += 0.25;
+			fg.g += 0.25*amount;
 		}
 	}
 
