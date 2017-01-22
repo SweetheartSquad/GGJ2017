@@ -232,6 +232,15 @@ Arena.prototype.getBeaned = function(){
 	}
 }
 
+Arena.prototype.bean = function(id){
+	for( var i = 0; i < this.players.length; i++ ){
+		if( this.players[i].id == id ){
+			this.players[i].hasBean = true;
+			return;
+		}
+	}
+}
+
 
 Arena.prototype.updateLaneCounts = function(){
 	// wavy lanes

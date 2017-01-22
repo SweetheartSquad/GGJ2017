@@ -213,6 +213,7 @@ Menu.prototype.beanUpdate = function(){
 	this.bean.y = lerp(this.bean.y, size.y*0.75, ease(this.beanTimer/100));
 };
 
+
 Menu.prototype.isBeaned = function(){
 	return this.beanTimer > 50;
 };

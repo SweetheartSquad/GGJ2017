@@ -104,7 +104,7 @@ function update(){
 			}else{
 				//sounds[""].play();
 				arena = new Arena(menu.getPlayers());
-				arena.players[menu.whoIsBeaned].hasBean = true;
+				arena.bean(menu.whoIsBeaned);
 				menu.destroy();
 				menu = false;
 				state = GAME;
