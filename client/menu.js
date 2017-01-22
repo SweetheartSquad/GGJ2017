@@ -71,8 +71,7 @@ function Menu(_players){
 		logo.anchor.y = 0.5;
 		logo.position.x = size.x/4*(i+0.5);
 		logo.position.y = size.y*0.50;
-		logo.width = size.x*0.10;
-		logo.scale.y = logo.scale.x;
+		logo.scale.y = logo.scale.x = 0;
 		this.scene.addChild(logo);
 	}
 
@@ -104,6 +103,8 @@ Menu.prototype.destroy = function(){
 
 Menu.prototype.alwaysUpdate = function(){
 	for(var i = 0; i < this.logo.length; ++i){
+		this.logo[i].width = lerp(this.logo[i].width, size.x*0.13+Math.cos(curTime/150 + i/3)*size.x*0.01, 0.05);
+		this.logo[i].scale.y = this.logo[i].scale.x;
 		this.logo[i].rotation = (Math.sin(i/3+curTime/300)/3);
 	}
 }
@@ -120,10 +121,16 @@ Menu.prototype.lobbyUpdate = function(){
 				}else if(this.joined[i]){
 					// ready up
 					this.ready[i] = true;
+					this.logo[i].scale.x += 0.2;
+					transition = 0.2;
+					screen_filter.uniforms.amount += 0.4;
 					//sounds[""].play();
 				}else{
 					// join
 					this.joined[i] = true;
+					this.logo[i].scale.x += 0.2;
+					transition = 0.2;
+					screen_filter.uniforms.amount += 0.4;
 					//sounds[""].play();
 				}
 			}
@@ -132,10 +139,16 @@ Menu.prototype.lobbyUpdate = function(){
 				if(this.ready[i]){
 					// unready
 					this.ready[i] = false;
+					this.logo[i].scale.x -= 0.2;
+					transition = 0.1;
+					screen_filter.uniforms.amount += 0.2;
 					//sounds["cancel"].play();
 				}else if(this.joined[i]){
 					// unjoin
 					this.joined[i] = false;
+					this.logo[i].scale.x -= 0.2;
+					transition = 0.1;
+					screen_filter.uniforms.amount += 0.2;
 					//sounds["cancel"].play();
 				}else{
 					// nothing
