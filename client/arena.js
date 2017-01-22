@@ -215,6 +215,15 @@ Arena.prototype.getScores = function(){
 	return scores;
 }
 
+Arena.prototype.getIds = function(){
+	var ids = [];
+	for( var i = 0; i < this.players.length; i++ ){
+		ids.push( this.players[i].id );
+	}
+	return scidsores;
+}
+
+
 Arena.prototype.getBeaned = function(){
 	for( var i = 0; i < this.players.length; i++ ){
 		if( this.players[i].hasBean ){

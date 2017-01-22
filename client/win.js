@@ -1,4 +1,4 @@
-function Win(scores, beanIdx){
+function Win(scores, beanIdx, ids){
 	this.scene = new PIXI.Container();
 	game.addChild(this.scene);
 
@@ -15,9 +15,12 @@ function Win(scores, beanIdx){
 	//this.bean.anchor.y = 0.5;
 	this.bean.y = -size.y;
 	this.scene.addChild(this.bean);
+    this.scores = scores;
 
     this.createPodiums(scores);
 
+    this.done = false;
+    this.ids = ids;
 }   
 
 
@@ -51,5 +54,28 @@ Win.prototype.render = function(){
 
 Win.prototype.update = function(){
      this.bean.y = lerp( this.bean.y, this.beanTargetY, 0.05 );
+
+     if( Math.abs( this.bean.y - this.beanTargetY ) < 10 ){
+         for( var i = 0; i < this.scores.length; i++ ){
+             var input = getInput(i);
+             if( input.dive || input.swap ){
+                 this.done = true;
+             }
+         }
+     }
 }
 
+
+Win.prototype.destroy = function(){
+    game.removeChild(this.scene);
+	this.scene.destroy();
+}
+
+
+Win.prototype.isDone = function(){
+    return this.done;
+}
+
+Win.prototype.getIds = function(){
+    return this.ids;
+}

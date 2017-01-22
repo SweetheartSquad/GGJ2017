@@ -2,7 +2,7 @@
 
 DEFAULT_SPEED = 2;
 SPEED_RESET_FRAMES = 60;
-NUM_LAPS = 3;
+NUM_LAPS = 1;
 
 function Player( _id, _lane ){
 	this.dive_filter = new CustomFilter(PIXI.loader.resources.dive_shader.data);
@@ -138,12 +138,12 @@ Player.prototype.update = function(){
     }
 
     if( this.nextStroke === 1 && input.strokeLeft ){
-        this.speed -= 0.25;
+        this.speed -= 0.5;
     }
 
     
     if( this.nextStroke === -1 && input.strokeRight ){
-        this.speed -= 0.25;
+        this.speed -= 0.5;
     }
 
     if( this.framesSinceCorrectStroke >= SPEED_RESET_FRAMES ){
@@ -198,7 +198,7 @@ Player.prototype.executeQueued = function(){
 }
 
 Player.prototype.correctStroke = function(){
-    this.speed += 0.5;
+    this.speed += 1;
     this.framesSinceCorrectStroke = 0;
     this.container.scale.y *= -1;
     this.numberText.scale.y *= -1;

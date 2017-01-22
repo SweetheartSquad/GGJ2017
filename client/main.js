@@ -123,6 +123,12 @@ function update(){
 	}if(state === WIN){
 		transition = lerp(transition,0,0.05);
 		win.update();
+		if( win.isDone() ){
+			win.destroy();
+			state = MENU;
+			menu = new Menu( win.getIds() );
+			transition = 1;
+		}
 	}
 
 
