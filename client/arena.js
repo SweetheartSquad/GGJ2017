@@ -210,7 +210,7 @@ Arena.prototype.destroy = function(){
 Arena.prototype.getScores = function(){
 	var scores = [];
 	for( var i = 0; i < this.players.length; i++ ){
-		scores.push( NUM_LAPS - this.players[i].lapsRemaining );
+		scores.push( 1 - this.players[i].lapsRemaining/NUM_LAPS );
 	}
 	return scores;
 }
