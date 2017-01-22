@@ -68,8 +68,8 @@ function onResize() {
 }
 
 function update(){
+	screen_filter.uniforms["amount"] = lerp(screen_filter.uniforms["amount"], (state === SPLASH ? transition : 1), 0.1);
 	if( state === SPLASH ){
-		screen_filter.uniforms["amount"] = transition;
 		if(splash.delay == 60 && transition > 0){
 			transition -= 0.005;
 			if(transition <= 0){
@@ -79,7 +79,7 @@ function update(){
 		}else if(splash.delay > 0){
 			splash.delay -= 1;
 		}else if(splash.delay == 0 && transition < 1){
-			transition += 0.1;
+			transition += 0.05;
 		}else{
 			splash.destroy();
 			splash = null;
