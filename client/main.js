@@ -3,7 +3,7 @@ var MENU = 0;
 var GAME = 1;
 var BEAN = 2;
 
-var state = MENU;
+var state = GAME;
 
 debug = false;
 
@@ -46,7 +46,7 @@ function init(){
 
 	menu = new Menu([0,1]);
 
-
+	arena = new Arena();
 	// setup resize
 	window.onresize = onResize;
 	onResize();

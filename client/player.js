@@ -12,7 +12,6 @@ function Player( _id ){
 
     this.container = new PIXI.Container();
     this.container.y = poolBounds.y + laneSize * (this.lane + 0.5);
-
     
     this.swimmerSprite = new PIXI.extras.AnimatedSprite( [
     	PIXI.loader.resources.swimmer1.texture,
@@ -21,7 +20,8 @@ function Player( _id ){
     	PIXI.loader.resources.swimmer4.texture,
     	PIXI.loader.resources.swimmer5.texture,
     	PIXI.loader.resources.swimmer1.texture
-    	] );
+    ] );
+
     this.swimmerSprite.loop = false;
     this.swimmerSprite.anchor.x = 0.5;
     this.swimmerSprite.anchor.y = 0.5;

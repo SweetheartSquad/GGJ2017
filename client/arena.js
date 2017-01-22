@@ -161,12 +161,12 @@ Arena.prototype.addLanes = function(){
 
 Arena.prototype.addLaneCounts = function(){
 	var font = new PIXI.TextStyle({
-		fontFamily: "Arial",
-		fontSize: size.x/10+"px",
+		fontFamily: "serif",
+		fontSize: size.x/14+"px",
 		align: "center",
-		fill: 0xFFFFFF,
-		stroke: 0x000000,
-		strokeThickness: 1
+		fill: 0x666,
+		stroke: 0xfff,
+		strokeThickness: 5
 	});
 	for(var i = 0; i < 4; ++i){
 		var laneCount = {
@@ -176,8 +176,12 @@ Arena.prototype.addLaneCounts = function(){
 				new PIXI.Text("99", font)
 			]
 		};
-		laneCount.texts[0].x = poolBounds.x - 20;
-		laneCount.texts[1].x = poolBounds.x+poolBounds.width + 20;
+
+		laneCount.texts[0].x = poolBounds.x - 80;
+		laneCount.texts[1].x = poolBounds.x+poolBounds.width + 90;
+
+		laneCount.texts[0].x = poolBounds.x - 80;
+		laneCount.texts[1].x = poolBounds.x+poolBounds.width + 90;
 		laneCount.texts[0].anchor.x = 0.5;
 		laneCount.texts[1].anchor.x = 0.5;
 		laneCount.texts[0].anchor.y = 0.5;
