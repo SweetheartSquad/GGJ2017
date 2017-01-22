@@ -43,13 +43,33 @@ function Arena(_players){
 		strokeThickness: 5
 	});
 	this.timeTimer = 120;
-	this.timeText = new PIXI.Text("TIME", font);
+	this.timeText = new PIXI.Text("GAME", font);
 	this.timeText.anchor.x = 0.5;
 	this.timeText.anchor.y = 0.5;
 	this.timeText.x = size.x/2;
 	this.timeText.y = size.y/2;
 	this.timeText.visible = false;
 	this.scene.addChild(this.timeText);
+
+
+	var fontCountdown = new PIXI.TextStyle({
+		fontFamily: "serif",
+		fontSize: size.x/2+"px",
+		align: "center",
+		fill: 0x666,
+		stroke: 0xfff,
+		strokeThickness: 5
+	});
+	this.countdownVal = 3;
+	this.countdownTimer = 60;
+	this.countdown = new PIXI.Text(this.countdownVal, fontCountdown);
+	this.countdown.anchor.x = 0.5;
+	this.countdown.anchor.y = 0.5;
+	this.countdown.x = size.x/2;
+	this.countdown.y = size.y/2;
+	this.countdown.visible = false;
+	this.scene.addChild(this.countdown);
+	this.done = false;
 }
 
 
@@ -264,6 +284,22 @@ Arena.prototype.bean = function(id){
 }
 
 
+Arena.prototype.countdownUpdate = function(){
+	this.countdown.visible = true;
+	this.countdownTimer--;
+	if( this.countdownTimer <= 0){
+		this.countdownTimer = 60;
+		if(this.countdownVal > 0){
+			this.countdownVal--;
+			this.countdown.setText(this.countdownVal);
+			if(this.countdownVal == 0){
+				this.done=true;
+			}
+		}
+	}
+
+}
+
 Arena.prototype.updateLaneCounts = function(){
 	// wavy lanes
 	for(var i = 0; i < this.laneCounts.length; ++i){
@@ -286,4 +322,8 @@ Arena.prototype.updateLaneCounts = function(){
 
 		}
 	}
+};
+
+Arena.prototype.countdownDone = function(){
+	return this.done;
 };

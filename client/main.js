@@ -101,12 +101,7 @@ function update(){
 		}
 	}if(state === BEAN){
 		menu.beanUpdate();
-		if(menu.isBeaned()){
-			state = COUNTDOWN;
-		}
-	}if(state === COUNTDOWN){
-		menu.countdownUpdate();
-		if(menu.countdownDone()){
+		if(menu.isBeaned()){	
 			if(transition < 1){
 				transition += 0.01;
 			}else{
@@ -115,18 +110,24 @@ function update(){
 				arena.bean(menu.whoIsBeaned);
 				menu.destroy();
 				menu = false;
-				state = GAME;
+				state = COUNTDOWN;
 			}
 		}
-	}if( state === GAME ){
+	}if(state === COUNTDOWN){
 		transition = lerp(transition,0,0.05);
+		arena.countdownUpdate();
+		if(arena.countdownDone()){
+			state = GAME;
+		}
+	}if( state === GAME ){
 		arena.update();
+		transition = lerp(transition,0,0.05);
 		if( arena.isDone() ){
-			arena.timeTime--;
 			arena.timeText.visible = true;
 			state = TIME;
 		}
 	}if(state == TIME){
+		arena.timeTimer--;
 		if(arena.timeTimer <= 0){
 			if(transition < 1){
 				transition += 0.01;

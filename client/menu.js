@@ -95,26 +95,6 @@ function Menu(_players){
 	this.beanTimer = 0;
 	this.whoIsBeaned = -1;
 
-
-	var font = new PIXI.TextStyle({
-		fontFamily: "serif",
-		fontSize: size.x/2+"px",
-		align: "center",
-		fill: 0x666,
-		stroke: 0xfff,
-		strokeThickness: 5
-	});
-	this.countdownVal = 3;
-	this.countdownTimer = 60;
-	this.countdown = new PIXI.Text(this.countdownVal, font);
-	this.countdown.anchor.x = 0.5;
-	this.countdown.anchor.y = 0.5;
-	this.countdown.x = size.x/2;
-	this.countdown.y = size.y/2;
-	this.countdown.visible = false;
-	this.scene.addChild(this.countdown);
-	this.done = false;
-
 };
 
 Menu.prototype.destroy = function(){
@@ -196,28 +176,7 @@ Menu.prototype.lobbyUpdate = function(){
 	}
 };
 
-Menu.prototype.countdownUpdate = function(){
-	console.log(this.countdown.scale);
-	if( this.countdown.scale.x >= 0.99 ){
-		this.countdown.scale.x = lerp(this.countdown.scale.x, 0.5, 0.1);
-	}else if( this.countdown.scale.x <= 0.49 ){
-		this.countdown.scale.x = lerp(this.countdown.scale.x, 1, 0.1);
-	}
-	this.countdown.scale.y = this.countdown.scale.x;
-	this.countdown.visible = true;
-	this.countdownTimer--;
-	if( this.countdownTimer <= 0){
-		this.countdownTimer = 60;
-		if(this.countdownVal > 0){
-			this.countdownVal--;
-			this.countdown.setText(this.countdownVal);
-			if(this.countdownVal == 0){
-				this.done=true;
-			}
-		}
-	}
 
-}
 
 Menu.prototype.isDone = function(){
 	var numjoined = 0;
@@ -270,8 +229,4 @@ Menu.prototype.getPlayers = function(){
 
 Menu.prototype.render = function(){
 
-};
-
-Menu.prototype.countdownDone = function(){
-	return this.done;
 };
