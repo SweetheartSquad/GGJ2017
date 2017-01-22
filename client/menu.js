@@ -144,13 +144,13 @@ Menu.prototype.lobbyUpdate = function(){
 					this.ready[i] = true;
 					this.logo[i].scale.x += 0.2;
 					shaderAmount += 0.4;
-					//sounds[""].play();
+					sounds["select"].play();
 				}else{
 					// join
 					this.joined[i] = true;
 					this.logo[i].scale.x += 0.2;
 					shaderAmount += 0.4;
-					//sounds[""].play();
+					sounds["select"].play();
 				}
 			}
 
@@ -160,13 +160,13 @@ Menu.prototype.lobbyUpdate = function(){
 					this.ready[i] = false;
 					this.logo[i].scale.x -= 0.2;
 					shaderAmount += 0.2;
-					//sounds["cancel"].play();
+					sounds["cancel"].play();
 				}else if(this.joined[i]){
 					// unjoin
 					this.joined[i] = false;
 					this.logo[i].scale.x -= 0.2;
 					shaderAmount += 0.2;
-					//sounds["cancel"].play();
+					sounds["cancel"].play();
 				}else{
 					// nothing
 				}

@@ -171,6 +171,11 @@ Player.prototype.update = function(){
     	this.visualSwapQueue[0].time -= 1;
     	if(this.visualSwapQueue[0].time <= 0){
     		this.visualSwapQueue.shift();
+    		if(this.hasBean){
+    			sounds["bean"].play();
+    		}else{
+    			sounds["swap"].play();
+    		}
     	}
     }
 

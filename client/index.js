@@ -60,6 +60,30 @@ $(document).ready(function(){
 		loop:false,
 		volume:1
 	});
+	sounds["cancel"]=new Howl({
+		urls:["assets/audio/1.wav"],
+		autoplay:false,
+		loop:false,
+		volume:1
+	});
+	sounds["select"]=new Howl({
+		urls:["assets/audio/2.wav"],
+		autoplay:false,
+		loop:false,
+		volume:1
+	});
+	sounds["swap"]=new Howl({
+		urls:["assets/audio/3.wav"],
+		autoplay:false,
+		loop:false,
+		volume:1
+	});
+	sounds["bean"]=new Howl({
+		urls:["assets/audio/4.wav"],
+		autoplay:false,
+		loop:false,
+		volume:1
+	});
 
 
 	// create render texture
