@@ -220,7 +220,7 @@ Arena.prototype.getIds = function(){
 	for( var i = 0; i < this.players.length; i++ ){
 		ids.push( this.players[i].id );
 	}
-	return scidsores;
+	return ids;
 }
 
 

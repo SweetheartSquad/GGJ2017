@@ -116,7 +116,7 @@ function update(){
 		if( arena.isDone() ){
 			var scores = arena.getScores();
 			var beaned = arena.getBeaned();
-			win = new Win(scores, beaned);
+			win = new Win(scores, beaned, arena.getIds());
 			state = WIN;
 			transition = 1;
 		}

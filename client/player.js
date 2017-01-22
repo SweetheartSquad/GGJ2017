@@ -2,7 +2,7 @@
 
 DEFAULT_SPEED = 2;
 SPEED_RESET_FRAMES = 60;
-NUM_LAPS = 20;
+NUM_LAPS = 1;
 
 function Player( _id, _lane ){
 	this.dive_filter = new CustomFilter(PIXI.loader.resources.dive_shader.data);

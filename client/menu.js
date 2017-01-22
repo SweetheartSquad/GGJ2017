@@ -85,6 +85,7 @@ function Menu(_players){
 	this.joined = [false,false,false,false];
 	this.ready = [false,false,false,false];
 
+console.log(_players);
 	// automatically join passed in players
 	if(_players){
 		for(var i = 0; i < _players.length; ++i){
