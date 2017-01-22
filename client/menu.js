@@ -125,6 +125,10 @@ Menu.prototype.lobbyUpdate = function(){
 		shaderAmount += 2;
 	}
 
+	if(this.help.visible){
+		shaderAmount = lerp(shaderAmount, 0.25, 0.5);
+	}
+
 	if(!this.isDone()){
 		for(var i = 0; i < 4; ++i){
 			var input = getInput(i);
