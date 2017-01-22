@@ -66,6 +66,8 @@ $(document).ready(function(){
 	CustomFilter.prototype.constructor = CustomFilter;
 
 	PIXI.loader
+		.add("splash","assets/img/GGJ00_GameCredits_SplashScreen.png")
+
 		.add("screen_shader","assets/screen_shader.frag")
 		.add("dive_shader","assets/dive_shader.frag")
 		.add("BEAN-logo","assets/img/BEAN-logo.png")

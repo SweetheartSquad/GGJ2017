@@ -1,10 +1,11 @@
 
+var SPLASH = -1;
 var MENU = 0;
 var GAME = 1;
 var BEAN = 2;
 var WIN  = 3;
 
-var state = MENU;
+var state = SPLASH;
 
 debug = false;
 
@@ -31,11 +32,12 @@ function init(){
 	// setup screen filter
 	screen_filter = new CustomFilter(PIXI.loader.resources.screen_shader.data);
 	screen_filter.padding = 0;
+	screen_filter.uniforms["amount"] = 1;
 	renderSprite.filterArea = new PIXI.Rectangle(0,0,size.x,size.y);
 
 	renderSprite.filters = [screen_filter];
 
-	transition = 0;
+	transition = 1;
 
 	poolBounds = {
 		width: size.x - size.x/14*2,
@@ -45,8 +47,9 @@ function init(){
 	}
 	laneSize = poolBounds.height * 0.25;
 
-	menu = new Menu([0,1]);
-
+	splash = new PIXI.Sprite(PIXI.loader.resources.splash.texture);
+	splash.delay = 60;
+	game.addChild(splash);
 	//arena = new Arena();
 //	win = new Win([3, 5, 4, 2]);
 	// setup resize
@@ -65,10 +68,33 @@ function onResize() {
 }
 
 function update(){
-	if( state === MENU ){
+	if( state === SPLASH ){
+		screen_filter.uniforms["amount"] = transition;
+		if(splash.delay == 60 && transition > 0){
+			transition -= 0.005;
+			if(transition <= 0){
+				transition = 0;
+				splash.delay -= 1;
+			}
+		}else if(splash.delay > 0){
+			splash.delay -= 1;
+		}else if(splash.delay == 0 && transition < 1){
+			transition += 0.1;
+		}else{
+			splash.destroy();
+			splash = null;
+			menu = new Menu([0,1]);
+			state = MENU;
+			screen_filter.uniforms["amount"] = 1;
+		}
+	}if( state === MENU ){
 		menu.lobbyUpdate();
 		if(menu.isDone()){
 			state = BEAN;
+		}else{
+			if(transition > 0){
+				transition -= 0.01;
+			}
 		}
 	}if(state === BEAN){
 		menu.beanUpdate();
