@@ -70,10 +70,15 @@ function Arena(_players){
 	this.countdown.visible = false;
 	this.scene.addChild(this.countdown);
 	this.done = false;
+
+	this.elapsed = 0;
 }
 
 
 Arena.prototype.update = function(){
+
+	this.elapsed++;
+
 	for( var i = 0; i < this.players.length; i++ ){
 		this.players[i].update();
 	}
@@ -98,6 +103,7 @@ Arena.prototype.update = function(){
 					this.players[i].container.x < this.players[j].container.x
 				))
 			){
+				
 				this.players[i].pass(this.players[j]);
 				var canPass = this.players[j].pass(this.players[i]);
 				console.log(canPass);

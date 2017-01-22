@@ -111,6 +111,7 @@ function update(){
 				menu.destroy();
 				menu = false;
 				state = COUNTDOWN;
+				arena.update();
 			}
 		}
 	}if(state === COUNTDOWN){
