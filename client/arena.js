@@ -218,8 +218,8 @@ Arena.prototype.addLaneCounts = function(){
 		var laneCount = {
 			player: this.players[i],
 			texts: [
-				new PIXI.Text("99", font),
-				new PIXI.Text("99", font)
+				new PIXI.Text(NUM_LAPS.toString(10), font),
+				new PIXI.Text(NUM_LAPS.toString(10), font)
 			]
 		};
 
@@ -299,7 +299,10 @@ Arena.prototype.countdownUpdate = function(){
 			this.countdownVal--;
 			this.countdown.setText(this.countdownVal);
 			if(this.countdownVal == 0){
+				sounds["countdownDone"].play();
 				this.done=true;
+			}else{
+				sounds["countdown"].play();
 			}
 		}
 	}

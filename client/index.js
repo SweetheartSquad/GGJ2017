@@ -120,6 +120,24 @@ $(document).ready(function(){
 		loop:false,
 		volume:1
 	});
+	sounds["gameover"]=new Howl({
+		urls:["assets/audio/11.wav"],
+		autoplay:false,
+		loop:false,
+		volume:1
+	});
+	sounds["countdown"]=new Howl({
+		urls:["assets/audio/12.wav"],
+		autoplay:false,
+		loop:false,
+		volume:1
+	});
+	sounds["countdownDone"]=new Howl({
+		urls:["assets/audio/13.wav"],
+		autoplay:false,
+		loop:false,
+		volume:1
+	});
 
 
 	// create render texture

@@ -126,6 +126,7 @@ function update(){
 		if( arena.isDone() ){
 			arena.timeText.visible = true;
 			state = TIME;
+			sounds["gameover"].play();
 		}
 	}if(state == TIME){
 		arena.timeTimer--;
