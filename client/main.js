@@ -83,7 +83,7 @@ function update(){
 		}else{
 			splash.destroy();
 			splash = null;
-			menu = new Menu([0,1]);
+			menu = new Menu([]);
 			state = MENU;
 			shaderAmount = 1;
 		}
