@@ -104,6 +104,9 @@ Player.prototype.update = function(){
     	if(this.willDive){
     		sounds["dive"].play();
     	}
+    	if(this.willSwap){
+    		sounds["willSwap"].play();
+    	}
         this.willDive = false;
         this.willSwap = false;
     } 
@@ -119,6 +122,9 @@ Player.prototype.update = function(){
 
     
     if( input.swap == true ){
+    	if(!this.willSwap){
+    		sounds["willSwap"].play();
+    	}
         this.willSwap = true;
         this.queueTimeout = 60;
     }

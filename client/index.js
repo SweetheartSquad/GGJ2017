@@ -114,6 +114,12 @@ $(document).ready(function(){
 		loop:false,
 		volume:1
 	});
+	sounds["willSwap"]=new Howl({
+		urls:["assets/audio/10.wav"],
+		autoplay:false,
+		loop:false,
+		volume:1
+	});
 
 
 	// create render texture
