@@ -93,6 +93,7 @@ $(document).ready(function(){
 		.add("ready_4","assets/img/ready_1.png")
 
 		.add("win","assets/img/win.png")
+		.add("medal","assets/img/medal.png")
 
 		.add("joinText","assets/img/joinText.png")
 		.add("readyText","assets/img/readyText.png")
@@ -105,6 +106,7 @@ $(document).ready(function(){
 
 	for(var j = 1; j <= 9; ++j){
 		PIXI.loader.add("swimmer_"+j.toString(10),"assets/img/swimmer/swimmer_"+j.toString(10)+".png");
+		PIXI.loader.add("swimmerbean_"+j.toString(10),"assets/img/swimmerbean/bean"+j.toString(10)+".png");
 	}
 	PIXI.loader
 		.on("progress", loadProgressHandler)

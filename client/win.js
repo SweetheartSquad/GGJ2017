@@ -29,19 +29,21 @@ Win.prototype.createPodiums = function(scores){
     var graphics = new PIXI.Graphics();
     var width = size.x/6;
     for( var i = 0; i < scores.length; i++ ){
-        var char = new PIXI.Sprite(PIXI.loader.resources["win"].texture);
-        this.scene.addChild(char);
-        char.anchor.x = 0.5; 
-        //  char.anchor.y = 0.0;
+        var playerSprite = new PIXI.Sprite(PIXI.loader.resources["win"].texture);
+        var medalSprite = new PIXI.Sprite(PIXI.loader.resources["medal"].texture);
+        playerSprite.addChild(medalSprite);
+        this.scene.addChild(playerSprite);
+        playerSprite.anchor.x = medalSprite.anchor.x = 0.5; 
+        //  playerSprite.anchor.y = 0.0;
         var y = size.y - scores[i] * podiumHeight;
-        char.x = i * width + ( size.x / 2 - width * scores.length / 2 ) + width * 0.5;
-        char.y = y - char.height;
+        playerSprite.x = i * width + ( size.x / 2 - width * scores.length / 2 ) + width * 0.5;
+        playerSprite.y = y - playerSprite.height;
         graphics.beginFill(i % 2 == 0 ? 0xffff00 : 0xff00ff, 1);
         graphics.drawRect(i * width, y, width, scores[i] * podiumHeight);
         graphics.endFill();
         if( i == this.beanIdx ){
-            this.beanTargetY = y - char.height;
-            this.bean.x = width * this.beanIdx + (size.x / 2 - width * scores.length / 2) + char.width/2 - this.bean.width/2;
+            this.beanTargetY = y - playerSprite.height;
+            this.bean.x = width * this.beanIdx + (size.x / 2 - width * scores.length / 2) + playerSprite.width/2 - this.bean.width/2;
         }
     }
     graphics.x = size.x / 2 - width * scores.length / 2;

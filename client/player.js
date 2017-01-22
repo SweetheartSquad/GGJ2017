@@ -15,13 +15,19 @@ function Player( _id, _lane ){
 
     this.container = new PIXI.Container();
     this.container.y = poolBounds.y + laneSize * (this.lane + 0.5);
+    this.container.filters = [this.dive_filter];
 
+    // animation frames
     this.swimmerframes=[];
+    this.beanframes=[];
     for(var i = 1; i <= 9; ++i){
     	this.swimmerframes.push(PIXI.loader.resources["swimmer_"+i.toString(10)].texture);
+    	this.beanframes.push(PIXI.loader.resources["swimmerbean_"+i.toString(10)].texture);
     }
 	this.swimmerframes.push(PIXI.loader.resources["swimmer_1"].texture);
+	this.beanframes.push(PIXI.loader.resources["swimmerbean_1"].texture);
 
+	// swimmer
     this.swimmerSprite = new PIXI.extras.AnimatedSprite( this.swimmerframes );
     this.swimmerSprite.loop = false;
     this.swimmerSprite.anchor.x = 0.5;
@@ -30,8 +36,16 @@ function Player( _id, _lane ){
     this.swimmerSprite.scale.y = this.swimmerSprite.scale.x;
     this.container.addChild( this.swimmerSprite );
 
-    this.container.filters = [this.dive_filter];
+    // bean
+    this.beanSprite = new PIXI.extras.AnimatedSprite( this.beanframes );
+    this.beanSprite.loop = false;
+    this.beanSprite.anchor.x = 0.5;
+    this.beanSprite.anchor.y = 0.5;
+    this.beanSprite.width = this.actualWidth;
+    this.beanSprite.scale.y = this.beanSprite.scale.x;
+    this.container.addChild( this.beanSprite );
 
+    // number
     this.numberText = new PIXI.Text((_id+1).toString(10), {
     	fontFamily: "Times New Roman",
     	fontSize: "32px",
@@ -42,21 +56,6 @@ function Player( _id, _lane ){
     this.container.addChild(this.numberText);
     this.numberText.rotate = Math.PI/2;
     this.numberText.x = this.actualWidth*0.22;
-
-    this.beanSprite = new PIXI.extras.AnimatedSprite( [
-    	PIXI.loader.resources.swimmerbean1.texture,
-    	PIXI.loader.resources.swimmerbean2.texture,
-    	PIXI.loader.resources.swimmerbean3.texture,
-    	PIXI.loader.resources.swimmerbean4.texture,
-    	PIXI.loader.resources.swimmerbean5.texture,
-    	PIXI.loader.resources.swimmerbean1.texture
-    	] );
-    this.beanSprite.loop = false;
-    this.beanSprite.anchor.x = 0.5;
-    this.beanSprite.anchor.y = 0.5;
-    this.beanSprite.width = this.actualWidth;
-    this.beanSprite.scale.y = this.beanSprite.scale.x;
-    this.container.addChild( this.beanSprite );
 
     //this.swimmerSprite.tint = this.beanSprite.tint = Math.random()*0xFFFFFF;
 
