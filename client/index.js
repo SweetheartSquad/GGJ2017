@@ -94,7 +94,7 @@ $(document).ready(function(){
 		.add("swimmerbean5","assets/img/swimmerbean/swimmerbean5.png");
 
 	for(var j = 1; j <= 9; ++j){
-		PIXI.loader.add("swimmer_"+j,"assets/img/swimmer/swimmer_"+j+".png");
+		PIXI.loader.add("swimmer_"+j.toString(10),"assets/img/swimmer/swimmer_"+j.toString(10)+".png");
 	}
 	PIXI.loader
 		.on("progress", loadProgressHandler)
