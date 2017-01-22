@@ -162,7 +162,7 @@ Arena.prototype.addLanes = function(){
 Arena.prototype.addLaneCounts = function(){
 	var font = new PIXI.TextStyle({
 		fontFamily: "serif",
-		fontSize: size.x/14+"px",
+		fontSize: size.x/16+"px",
 		align: "center",
 		fill: 0x666,
 		stroke: 0xfff,
