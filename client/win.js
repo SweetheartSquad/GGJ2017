@@ -2,6 +2,15 @@ function Win(scores, beanIdx, ids){
 	this.scene = new PIXI.Container();
 	game.addChild(this.scene);
 
+    this.flashyFont = new PIXI.TextStyle({
+        fontFamily: "serif",
+        fontSize: size.x/20+"px",
+        align: "center",
+        fill: 0x666,
+        stroke: 0xfff,
+        strokeThickness: 5
+    });
+
     this.beanIdx = beanIdx;
     // background
 	var bg = new PIXI.Graphics();
@@ -11,10 +20,12 @@ function Win(scores, beanIdx, ids){
 	this.scene.addChild(bg);
 
     this.bean = new PIXI.Sprite(PIXI.loader.resources.bean.texture);
-	this.bean.anchor.x = 0.5;
+    var beanText = new PIXI.Text("LOSER",this.flashyFont);
+	this.bean.addChild(beanText);
+    beanText.anchor.x = beanText.anchor.y = 0.5;
+    this.bean.anchor.x = this.bean.anchor.y = 0.5;
 	//this.bean.anchor.y = 0.5;
-	this.bean.y = -size.y;
-	this.scene.addChild(this.bean);
+	this.bean.y = -size.y*2;
     this.scores = scores;
 
     this.scores=[];
@@ -45,22 +56,17 @@ function Win(scores, beanIdx, ids){
 
 
     this.createPodiums();
+    this.scene.addChild(this.bean);
 
     this.done = false;
     this.ids = ids;
+
+    this.beanTimer = 120;
 }   
 
 
 Win.prototype.createPodiums = function(){
     var scores = this.scores;
-    var font = new PIXI.TextStyle({
-        fontFamily: "serif",
-        fontSize: size.x/16+"px",
-        align: "center",
-        fill: 0x666,
-        stroke: 0xfff,
-        strokeThickness: 5
-    });
 
     var podiumHeight = 160;
     var graphics = new PIXI.Graphics();
@@ -75,7 +81,7 @@ Win.prototype.createPodiums = function(){
             fill:0xFFFF00,
             align: "center"
         });
-        var medalText = new PIXI.Text(scores[i].place,font);
+        var medalText = new PIXI.Text(scores[i].place,this.flashyFont);
         medalSprite.addChild(medalText);
         playerSprite.addChild(medalSprite);
         playerSprite.addChild(playerText);
@@ -95,8 +101,8 @@ Win.prototype.createPodiums = function(){
         graphics.drawRect(i * width, y, width, scores[i].score * podiumHeight);
         graphics.endFill();
         if( i == this.beanIdx ){
-            this.beanTargetY = y - playerSprite.height;
-            this.bean.x = width * this.beanIdx + (size.x / 2 - width * scores.length / 2) + playerSprite.width/2 - this.bean.width/2;
+            this.beanTargetY = y - playerSprite.height*0.45;
+            this.bean.x = playerSprite.x;
         }
     }
     graphics.x = size.x / 2 - width * scores.length / 2;
@@ -107,16 +113,19 @@ Win.prototype.render = function(){
 }
 
 Win.prototype.update = function(){
-     this.bean.y = lerp( this.bean.y, this.beanTargetY, 0.05 );
-
-     if( Math.abs( this.bean.y - this.beanTargetY ) < 10 ){
-         for( var i = 0; i < this.scores.length; i++ ){
-             var input = getInput(i);
-             if( input.dive || input.swap ){
-                 this.done = true;
-             }
-         }
-     }
+    if(this.beanTimer > 0){
+        this.beanTimer -=1;
+    }else{
+        this.bean.y = lerp( this.bean.y, this.beanTargetY, 0.05 );
+    }
+    if( Math.abs( this.bean.y - this.beanTargetY ) < 10 ){
+        for( var i = 0; i < this.scores.length; i++ ){
+            var input = getInput(i);
+            if( input.dive || input.swap ){
+                this.done = true;
+            }
+        }
+    }
 }
 
 

@@ -123,14 +123,12 @@ Menu.prototype.lobbyUpdate = function(){
 					// ready up
 					this.ready[i] = true;
 					this.logo[i].scale.x += 0.2;
-					transition = 0.2;
 					shaderAmount += 0.4;
 					//sounds[""].play();
 				}else{
 					// join
 					this.joined[i] = true;
 					this.logo[i].scale.x += 0.2;
-					transition = 0.2;
 					shaderAmount += 0.4;
 					//sounds[""].play();
 				}
@@ -141,14 +139,12 @@ Menu.prototype.lobbyUpdate = function(){
 					// unready
 					this.ready[i] = false;
 					this.logo[i].scale.x -= 0.2;
-					transition = 0.1;
 					shaderAmount += 0.2;
 					//sounds["cancel"].play();
 				}else if(this.joined[i]){
 					// unjoin
 					this.joined[i] = false;
 					this.logo[i].scale.x -= 0.2;
-					transition = 0.1;
 					shaderAmount += 0.2;
 					//sounds["cancel"].play();
 				}else{
@@ -198,6 +194,7 @@ Menu.prototype.beanUpdate = function(){
 	for(var i = 0; i < 4; ++i){
 		this.playerGraphics[i].joinText.visible = false;
 		this.playerGraphics[i].readyText.visible = false;
+		this.playerGraphics[i].ready.y = lerp(this.playerGraphics[i].ready.y, size.y*2, ease(this.beanTimer/150));
 	}
 
 	if(this.whoIsBeaned < 0){
@@ -208,14 +205,14 @@ Menu.prototype.beanUpdate = function(){
 	}
 	this.beanTimer += 1;
 	for(var i = 0; i < this.logo.length; ++i){
-		this.logo[i].y = lerp(this.logo[i].y, -size.y, ease(this.beanTimer/100));
+		this.logo[i].y = lerp(this.logo[i].y, size.y*2, ease(this.beanTimer/150));
 	}
-	this.bean.y = lerp(this.bean.y, size.y*0.75, ease(this.beanTimer/100));
+	this.bean.y = lerp(this.bean.y, size.y*0.75, ease(this.beanTimer/150));
 };
 
 
 Menu.prototype.isBeaned = function(){
-	return this.beanTimer > 50;
+	return this.beanTimer > 100;
 };
 
 Menu.prototype.getPlayers = function(){
