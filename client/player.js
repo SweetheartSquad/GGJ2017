@@ -2,7 +2,7 @@
 
 DEFAULT_SPEED = 2;
 SPEED_RESET_FRAMES = 60;
-NUM_LAPS = 1;
+NUM_LAPS = 20;
 
 function Player( _id, _lane ){
 	this.dive_filter = new CustomFilter(PIXI.loader.resources.dive_shader.data);
@@ -137,23 +137,25 @@ Player.prototype.update = function(){
     }
 
     if( this.nextStroke === 1 && input.strokeLeft ){
-        this.speed -= 0.5;
+        this.speed -= 1;
     }
 
     
     if( this.nextStroke === -1 && input.strokeRight ){
-        this.speed -= 0.5;
+        this.speed -= 1;
     }
 
-    if( this.framesSinceCorrectStroke >= SPEED_RESET_FRAMES ){
+    if ( this.framesSinceCorrectStroke >= SPEED_RESET_FRAMES ) {
         this.framesSinceCorrectStroke = 0;
         this.nextStroke = 0;
     }
 
     this.speed = lerp( this.speed, DEFAULT_SPEED, 0.025 );
     
-    this.container.x += this.speed * this.direction * (size.x/1920);
-    
+    if( this.speed > 0 ){
+        this.container.x += this.speed * this.direction * (size.x/1920);
+    }
+
     if(
     	( this.container.x + this.swimmerSprite.width/2 >= poolBounds.width + poolBounds.x )
     	||
@@ -197,7 +199,7 @@ Player.prototype.executeQueued = function(){
 }
 
 Player.prototype.correctStroke = function(){
-    this.speed += 1;
+    this.speed += 2;
     this.framesSinceCorrectStroke = 0;
     this.container.scale.y *= -1;
     this.numberText.scale.y *= -1;
