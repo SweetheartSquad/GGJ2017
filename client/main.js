@@ -111,7 +111,7 @@ function update(){
 				menu.destroy();
 				menu = false;
 				state = COUNTDOWN;
-				arena.update();
+				arena.updateGame();
 			}
 		}
 	}if(state === COUNTDOWN){
@@ -119,14 +119,18 @@ function update(){
 		arena.countdownUpdate();
 		if(arena.countdownDone()){
 			state = GAME;
+			transition = 0.3;
+			shaderAmount += 10;
 		}
 	}if( state === GAME ){
-		arena.update();
+		arena.updateGame();
 		transition = lerp(transition,0,0.05);
 		if( arena.isDone() ){
 			arena.timeText.visible = true;
 			state = TIME;
 			sounds["gameover"].play();
+			transition -= 0.1;
+			shaderAmount += 25;
 		}
 	}if(state == TIME){
 		arena.timeTimer--;

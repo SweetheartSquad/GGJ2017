@@ -72,16 +72,14 @@ function Arena(_players){
 	this.done = false;
 
 	this.elapsed = 0;
-
-
-	var help = new PIXI.Sprite(PIXI.loader.resources.help.texture);
-	help.visible = false;
-	this.scene.addChild(help);
 }
 
+Arena.prototype.updateAlways = function() {
+	this.updateLanes();
+	this.updateLaneCounts();
+};
 
-Arena.prototype.update = function(){
-
+Arena.prototype.updateGame = function(){
 	this.elapsed++;
 
 	for( var i = 0; i < this.players.length; i++ ){
@@ -118,9 +116,7 @@ Arena.prototype.update = function(){
 			}
 		}
 	}
-
-	this.updateLanes();
-	this.updateLaneCounts();
+	this.updateAlways();
 };
 
 
@@ -307,9 +303,12 @@ Arena.prototype.countdownUpdate = function(){
 				this.done=true;
 			}else{
 				sounds["countdown"].play();
+				transition = 0.1;
+				shaderAmount += 0.5;
 			}
 		}
 	}
+	this.updateAlways();
 
 }
 

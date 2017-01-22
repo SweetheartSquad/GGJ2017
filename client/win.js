@@ -94,11 +94,11 @@ Win.prototype.createPodiums = function(){
 
 
         //  playerSprite.anchor.y = 0.0;
-        var y = size.y - scores[i].score * podiumHeight;
+        var y = size.y - (scores[i].score+0.1) * podiumHeight;
         playerSprite.x = i * width + ( size.x / 2 - width * scores.length / 2 ) + width * 0.5;
         playerSprite.y = y - playerSprite.height*0.975;
         graphics.beginFill(i % 2 == 0 ? 0xffff00 : 0xff00ff, 1);
-        graphics.drawRect(i * width, y, width, scores[i].score * podiumHeight);
+        graphics.drawRect(i * width, y, width, (scores[i].score+0.1) * podiumHeight);
         graphics.endFill();
         if( i == this.beanIdx ){
             this.beanTargetY = y - playerSprite.height*0.45;
