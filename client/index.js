@@ -70,7 +70,12 @@ $(document).ready(function(){
 
 		.add("screen_shader","assets/screen_shader.frag")
 		.add("dive_shader","assets/dive_shader.frag")
-		.add("BEAN-logo","assets/img/BEAN-logo.png")
+
+		.add("logo_B","assets/img/logo_B.png")
+		.add("logo_E","assets/img/logo_E.png")
+		.add("logo_A","assets/img/logo_A.png")
+		.add("logo_N","assets/img/logo_N.png")
+
 		.add("arena","assets/img/arena.png")
 		.add("lane","assets/img/lane.png")
 		.add("bean","assets/img/bean.png")

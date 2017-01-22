@@ -58,14 +58,23 @@ function Menu(_players){
 	}
 
 	// logo
-	this.logo = new PIXI.Sprite(PIXI.loader.resources["BEAN-logo"].texture);
-	this.logo.anchor.x = 0.5;
-	this.logo.anchor.y = 0.5;
-	this.logo.position.x = size.x/2;
-	this.logo.position.y = size.y/3;
-	this.logo.width = size.x*0.7;
-	this.logo.scale.y = this.logo.scale.x;
-	this.scene.addChild(this.logo);
+	this.logo = [];
+
+	this.logo.push(new PIXI.Sprite(PIXI.loader.resources.logo_B.texture));
+	this.logo.push(new PIXI.Sprite(PIXI.loader.resources.logo_E.texture));
+	this.logo.push(new PIXI.Sprite(PIXI.loader.resources.logo_A.texture));
+	this.logo.push(new PIXI.Sprite(PIXI.loader.resources.logo_N.texture));
+	
+	for(var i = 0; i < this.logo.length; ++i){
+		var logo = this.logo[i];
+		logo.anchor.x = 0.5;
+		logo.anchor.y = 0.5;
+		logo.position.x = size.x/4*(i+0.5);
+		logo.position.y = size.y*0.50;
+		logo.width = size.x*0.10;
+		logo.scale.y = logo.scale.x;
+		this.scene.addChild(logo);
+	}
 
 	this.bean = new PIXI.Sprite(PIXI.loader.resources.bean.texture);
 	this.bean.anchor.x = 0.5;
@@ -93,7 +102,14 @@ Menu.prototype.destroy = function(){
 	this.scene.destroy();
 };
 
+Menu.prototype.alwaysUpdate = function(){
+	for(var i = 0; i < this.logo.length; ++i){
+		this.logo[i].rotation = (Math.sin(i/3+curTime/300)/3);
+	}
+}
+
 Menu.prototype.lobbyUpdate = function(){
+	this.alwaysUpdate();
 	if(!this.isDone()){
 		for(var i = 0; i < 4; ++i){
 			var input = getInput(i);
@@ -164,6 +180,7 @@ Menu.prototype.isDone = function(){
 };
 
 Menu.prototype.beanUpdate = function(){
+	this.alwaysUpdate();
 	for(var i = 0; i < 4; ++i){
 		this.playerGraphics[i].joinText.visible = false;
 		this.playerGraphics[i].readyText.visible = false;
@@ -176,7 +193,9 @@ Menu.prototype.beanUpdate = function(){
 		this.bean.x = (this.whoIsBeaned+0.5)/4 * size.x;
 	}
 	this.beanTimer += 1;
-	this.logo.y = lerp(this.logo.y, -size.y, ease(this.beanTimer/100));
+	for(var i = 0; i < this.logo.length; ++i){
+		this.logo[i].y = lerp(this.logo[i].y, -size.y, ease(this.beanTimer/100));
+	}
 	this.bean.y = lerp(this.bean.y, size.y*0.75, ease(this.beanTimer/100));
 };
 
