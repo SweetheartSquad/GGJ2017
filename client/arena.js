@@ -1,4 +1,4 @@
-function Arena(){
+function Arena(_players){
 	this.players = [];
 	this.lanes = [];
 	this.laneCounts = [];
@@ -12,7 +12,7 @@ function Arena(){
 	bg.endFill();
 	this.scene.addChild(bg);
 
-	this.addPlayers();
+	this.addPlayers(_players);
 	this.addLanes();
 
 	var arena = new PIXI.Sprite( PIXI.loader.resources.arena.texture );
@@ -128,9 +128,9 @@ Arena.prototype.swap = function( pA, pB ){
 	}
 };
 
-Arena.prototype.addPlayers = function(){
-	for( var i = 0; i < 4; i++ ){
-		var player = new Player( i );
+Arena.prototype.addPlayers = function(_players){
+	for( var i = 0; i < _players.length; i++ ){
+		var player = new Player( _players[i], i );
 		this.players.push( player );
 		this.scene.addChild( player.container );
 	}
@@ -166,7 +166,7 @@ Arena.prototype.addLaneCounts = function(){
 		stroke: 0xfff,
 		strokeThickness: 5
 	});
-	for(var i = 0; i < 4; ++i){
+	for(var i = 0; i < this.players.length; ++i){
 		var laneCount = {
 			player: this.players[i],
 			texts: [

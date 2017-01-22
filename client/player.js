@@ -4,13 +4,13 @@ DEFAULT_SPEED = 2;
 SPEED_RESET_FRAMES = 60;
 NUM_LAPS = 3;
 
-function Player( _id ){
+function Player( _id, _lane ){
 	this.dive_filter = new CustomFilter(PIXI.loader.resources.dive_shader.data);
 	this.dive_filter.uniforms.dive = 0;
 
     this.actualWidth = size.x/5;
     this.id = _id;
-    this.lane = _id;
+    this.lane = _lane;
     this.lapsRemaining = NUM_LAPS;
 
     this.container = new PIXI.Container();
