@@ -4,7 +4,7 @@ var GAME = 1;
 var BEAN = 2;
 var WIN  = 3;
 
-var state = WIN;
+var state = MENU;
 
 debug = false;
 
@@ -47,8 +47,8 @@ function init(){
 
 	menu = new Menu([0,1]);
 
-	arena = new Arena();
-	win = new Win([3, 5, 4, 2]);
+	//arena = new Arena();
+//	win = new Win([3, 5, 4, 2]);
 	// setup resize
 	window.onresize = onResize;
 	onResize();
