@@ -5,6 +5,7 @@ var GAME = 1;
 var BEAN = 2;
 var WIN  = 3;
 var COUNTDOWN = 4;
+var TIME = 5;
 
 var state = SPLASH;
 
@@ -120,11 +121,21 @@ function update(){
 		transition = lerp(transition,0,0.05);
 		arena.update();
 		if( arena.isDone() ){
-			var scores = arena.getScores();
-			var beaned = arena.getBeaned();
-			win = new Win(scores, beaned, arena.getIds());
-			state = WIN;
-			transition = 1;
+			arena.timeTime--;
+			arena.timeText.visible = true;
+			state = TIME;
+		}
+	}if(state == TIME){
+		if(arena.timeTimer <= 0){
+			if(transition < 1){
+				transition += 0.01;
+			}else{
+				var scores = arena.getScores();
+				var beaned = arena.getBeaned();
+				win = new Win(scores, beaned, arena.getIds());
+				state = WIN;
+				transition = 1;
+			}
 		}
 	}if(state === WIN){
 		transition = lerp(transition,0,0.05);

@@ -197,6 +197,13 @@ Menu.prototype.lobbyUpdate = function(){
 };
 
 Menu.prototype.countdownUpdate = function(){
+	console.log(this.countdown.scale);
+	if( this.countdown.scale.x >= 0.99 ){
+		this.countdown.scale.x = lerp(this.countdown.scale.x, 0.5, 0.1);
+	}else if( this.countdown.scale.x <= 0.49 ){
+		this.countdown.scale.x = lerp(this.countdown.scale.x, 1, 0.1);
+	}
+	this.countdown.scale.y = this.countdown.scale.x;
 	this.countdown.visible = true;
 	this.countdownTimer--;
 	if( this.countdownTimer <= 0){

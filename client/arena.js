@@ -30,6 +30,26 @@ function Arena(_players){
 	}
 	
 	this.addLaneCounts();
+
+	this.beanTimer = 0;
+	this.whoIsBeaned = -1;
+
+	var font = new PIXI.TextStyle({
+		fontFamily: "serif",
+		fontSize: size.x/3+"px",
+		align: "center",
+		fill: 0x666,
+		stroke: 0xfff,
+		strokeThickness: 5
+	});
+	this.timeTimer = 120;
+	this.timeText = new PIXI.Text("TIME", font);
+	this.timeText.anchor.x = 0.5;
+	this.timeText.anchor.y = 0.5;
+	this.timeText.x = size.x/2;
+	this.timeText.y = size.y/2;
+	this.timeText.visible = false;
+	this.scene.addChild(this.timeText);
 }
 
 
