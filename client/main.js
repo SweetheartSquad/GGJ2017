@@ -2,8 +2,9 @@
 var MENU = 0;
 var GAME = 1;
 var BEAN = 2;
+var WIN  = 3;
 
-var state = GAME;
+var state = WIN;
 
 debug = false;
 
@@ -47,6 +48,7 @@ function init(){
 	menu = new Menu([0,1]);
 
 	arena = new Arena();
+	win = new Win([3, 5, 4, 2]);
 	// setup resize
 	window.onresize = onResize;
 	onResize();
@@ -85,6 +87,8 @@ function update(){
 	}if( state === GAME ){
 		transition = lerp(transition,0,0.05);
 		arena.update();
+	}if(state === WIN){
+		win.render();
 	}
 
 
@@ -110,6 +114,8 @@ function render(){
 		menu.render();
 	}if(state === GAME){
 		arena.render();
+	}if(state === WIN){
+		win.render();
 	}
 
 	renderer.render(game,renderTexture);

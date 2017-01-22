@@ -28,8 +28,6 @@ function Arena(){
 		g.endFill();
 		this.scene.addChild(g);
 	}
-
-
 	
 	this.addLaneCounts();
 }
