@@ -115,6 +115,9 @@ Win.prototype.render = function(){
 Win.prototype.update = function(){
     if(this.beanTimer > 0){
         this.beanTimer -=1;
+        if(this.beanTimer == 0){
+            sounds["lose"].play();
+        }
     }else{
         this.bean.y = lerp( this.bean.y, this.beanTargetY, 0.05 );
     }
@@ -122,6 +125,7 @@ Win.prototype.update = function(){
         for( var i = 0; i < this.scores.length; i++ ){
             var input = getInput(i);
             if( input.dive || input.swap ){
+                sounds["select"].play();
                 this.done = true;
             }
         }

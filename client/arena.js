@@ -117,6 +117,8 @@ Arena.prototype.handlePass = function(pA, pB){
 			this.swap( pA, pB );
 		}
 	}
+	sounds["pass"].play();
+	transition += 0.2;
 	pA.executeQueued();
 	pB.executeQueued();
 };
@@ -279,6 +281,7 @@ Arena.prototype.updateLaneCounts = function(){
 				text.scale.x += 1;
 				text.scale.y += 1;
 				sounds["lap"].play();
+				shaderAmount += 0.5;
 			}
 
 		}

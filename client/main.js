@@ -93,6 +93,7 @@ function update(){
 		menu.lobbyUpdate();
 		if(menu.isDone()){
 			state = BEAN;
+			sounds["start"].play();
 		}else{
 			if(transition > 0){
 				transition -= 0.01;
