@@ -1,2 +1,4 @@
 progress/
 node_modules/
+*.psd
+*.p8
