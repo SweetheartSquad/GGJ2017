@@ -9,6 +9,8 @@ function Menu(_players){
 	bg.endFill();
 	this.scene.addChild(bg);
 
+	this.beanDelay = 0;
+	this.introPlayed = false;
 
 	// create graphics
 	this.playerGraphics=[];
@@ -111,6 +113,11 @@ Menu.prototype.alwaysUpdate = function(){
 		this.logo[i].width = lerp(this.logo[i].width, size.x*0.13+Math.cos(curTime/150 + i/3)*size.x*0.01, 0.05);
 		this.logo[i].scale.y = this.logo[i].scale.x;
 		this.logo[i].rotation = (Math.sin(i/3+curTime/300)/3);
+	}
+	this.beanDelay++;
+	if(this.beanDelay > 60 && !this.introPlayed ){
+		this.introPlayed = true;
+		sounds["intro"].play();
 	}
 }
 
