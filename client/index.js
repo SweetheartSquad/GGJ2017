@@ -87,19 +87,15 @@ $(document).ready(function(){
 		.add("joinText","assets/img/joinText.png")
 		.add("readyText","assets/img/readyText.png")
 
-
-		.add("swimmer1","assets/img/swimmer/swimmer1.png")
-		.add("swimmer2","assets/img/swimmer/swimmer2.png")
-		.add("swimmer3","assets/img/swimmer/swimmer3.png")
-		.add("swimmer4","assets/img/swimmer/swimmer4.png")
-		.add("swimmer5","assets/img/swimmer/swimmer5.png")
-
-
 		.add("swimmerbean1","assets/img/swimmerbean/swimmerbean1.png")
 		.add("swimmerbean2","assets/img/swimmerbean/swimmerbean2.png")
 		.add("swimmerbean3","assets/img/swimmerbean/swimmerbean3.png")
 		.add("swimmerbean4","assets/img/swimmerbean/swimmerbean4.png")
 		.add("swimmerbean5","assets/img/swimmerbean/swimmerbean5.png");
+
+	for(var j = 1; j <= 9; ++j){
+		PIXI.loader.add("swimmer_"+j,"assets/img/swimmer/swimmer_"+j+".png");
+	}
 	PIXI.loader
 		.on("progress", loadProgressHandler)
 		.load(init);

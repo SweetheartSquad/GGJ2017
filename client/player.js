@@ -5,7 +5,7 @@ SPEED_RESET_FRAMES = 60;
 NUM_LAPS = 5;
 
 function Player( _id ){
-    
+    this.actualWidth = size.x/5;
     this.id = _id;
     this.lane = _id;
     this.lapsRemaining = NUM_LAPS;
@@ -13,21 +13,28 @@ function Player( _id ){
     this.container = new PIXI.Container();
     this.container.y = poolBounds.y + laneSize * (this.lane + 0.5);
 
-    
-    this.swimmerSprite = new PIXI.extras.AnimatedSprite( [
-    	PIXI.loader.resources.swimmer1.texture,
-    	PIXI.loader.resources.swimmer2.texture,
-    	PIXI.loader.resources.swimmer3.texture,
-    	PIXI.loader.resources.swimmer4.texture,
-    	PIXI.loader.resources.swimmer5.texture,
-    	PIXI.loader.resources.swimmer1.texture
-    	] );
+    this.swimmerframes=[];
+    for(var i = 1; i <= 9; ++i){
+    	this.swimmerframes.push(PIXI.loader.resources["swimmer_"+i]);
+    }
+    this.swimmerSprite = new PIXI.extras.AnimatedSprite( this.swimmerframes );
     this.swimmerSprite.loop = false;
     this.swimmerSprite.anchor.x = 0.5;
     this.swimmerSprite.anchor.y = 0.5;
-    this.swimmerSprite.width = size.x/5;
+    this.swimmerSprite.width = this.actualWidth;
     this.swimmerSprite.scale.y = this.swimmerSprite.scale.x;
     this.container.addChild( this.swimmerSprite );
+
+    this.numberText = new PIXI.Text((_id+1).toString(10), {
+    	fontFamily: "Times New Roman",
+    	fontSize: "32px",
+    	fill:0xFFFF00
+    });
+    this.numberText.anchor.x = 0.5;
+    this.numberText.anchor.y = 0.5;
+    this.container.addChild(this.numberText);
+    this.numberText.rotate = Math.PI/2;
+    this.numberText.x = this.actualWidth/2;
 
     this.beanSprite = new PIXI.extras.AnimatedSprite( [
     	PIXI.loader.resources.swimmerbean1.texture,
@@ -40,7 +47,7 @@ function Player( _id ){
     this.beanSprite.loop = false;
     this.beanSprite.anchor.x = 0.5;
     this.beanSprite.anchor.y = 0.5;
-    this.beanSprite.width = size.x/5;
+    this.beanSprite.width = this.actualWidth;
     this.beanSprite.scale.y = this.beanSprite.scale.x;
     this.container.addChild( this.beanSprite );
 
@@ -162,8 +169,8 @@ Player.prototype.update = function(){
     this.container.y = lerp(this.container.y, poolBounds.y + laneSize * (l + 0.5), 0.25);
 
 
-    this.beanSprite.animationSpeed = this.speed/DEFAULT_SPEED/6;
-    this.swimmerSprite.animationSpeed = this.speed/DEFAULT_SPEED/6;
+    this.beanSprite.animationSpeed = this.speed/DEFAULT_SPEED/3;
+    this.swimmerSprite.animationSpeed = this.speed/DEFAULT_SPEED/3;
 }
 
 
