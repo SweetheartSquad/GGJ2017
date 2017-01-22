@@ -215,6 +215,14 @@ Arena.prototype.getScores = function(){
 	return scores;
 }
 
+Arena.prototype.getBeaned = function(){
+	for( var i = 0; i < this.players.length; i++ ){
+		if( this.players[i].hasBean ){
+			return i;
+		}
+	}
+}
+
 
 Arena.prototype.updateLaneCounts = function(){
 	// wavy lanes

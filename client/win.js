@@ -1,7 +1,8 @@
-function Win(scores){
+function Win(scores, beanIdx){
 	this.scene = new PIXI.Container();
 	game.addChild(this.scene);
 
+    this.beanIdx = beanIdx;
     // background
 	var bg = new PIXI.Graphics();
 	bg.beginFill(0x00FFFF);
@@ -9,8 +10,14 @@ function Win(scores){
 	bg.endFill();
 	this.scene.addChild(bg);
 
-    this.podiums = [];
+    this.bean = new PIXI.Sprite(PIXI.loader.resources.bean.texture);
+	this.bean.anchor.x = 0.5;
+	//this.bean.anchor.y = 0.5;
+	this.bean.y = -size.y;
+	this.scene.addChild(this.bean);
+
     this.createPodiums(scores);
+
 }   
 
 
@@ -28,6 +35,10 @@ Win.prototype.createPodiums = function(scores){
         graphics.beginFill(i % 2 == 0 ? 0xffff00 : 0xff00ff, 1);
         graphics.drawRect(i * width, y, width, scores[i] * 80);
         graphics.endFill();
+        if( i == this.beanIdx ){
+            this.beanTargetY = y - char.height;
+            this.bean.x = width * this.beanIdx + (size.x / 2 - width * scores.length / 2) + char.width/2 - this.bean.width/2;
+        }
     }
     graphics.x = size.x / 2 - width * scores.length / 2;
     this.scene.addChild(graphics);
@@ -38,6 +49,6 @@ Win.prototype.render = function(){
 }
 
 Win.prototype.update = function(){
-
+     this.bean.y = lerp( this.bean.y, this.beanTargetY, 0.05 );
 }
 
