@@ -2,7 +2,7 @@
 
 DEFAULT_SPEED = 2;
 SPEED_RESET_FRAMES = 60;
-NUM_LAPS = 5;
+NUM_LAPS = 1;
 
 function Player( _id ){
     this.actualWidth = size.x/5;

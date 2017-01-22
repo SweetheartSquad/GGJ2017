@@ -15,12 +15,18 @@ function Win(scores){
 
 
 Win.prototype.createPodiums = function(scores){
-    
     var graphics = new PIXI.Graphics();
     var width = 250;
     for( var i = 0; i < scores.length; i++ ){
+        var char = new PIXI.Sprite(PIXI.loader.resources["win"].texture);
+        this.scene.addChild(char);
+        char.anchor.x = 0.5; 
+        //  char.anchor.y = 0.0;
+        var y = size.y - scores[i] * 80;
+        char.x = i * width + ( size.x / 2 - width * scores.length / 2 ) + width * 0.5;
+        char.y = y - char.height;
         graphics.beginFill(i % 2 == 0 ? 0xffff00 : 0xff00ff, 1);
-        graphics.drawRect(i * width, size.y - scores[i] * 80, width, scores[i] * 80);
+        graphics.drawRect(i * width, y, width, scores[i] * 80);
         graphics.endFill();
     }
     graphics.x = size.x / 2 - width * scores.length / 2;

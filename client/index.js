@@ -84,6 +84,8 @@ $(document).ready(function(){
 		.add("ready_3","assets/img/ready_1.png")
 		.add("ready_4","assets/img/ready_1.png")
 
+		.add("win","assets/img/win.png")
+
 		.add("joinText","assets/img/joinText.png")
 		.add("readyText","assets/img/readyText.png")
 
