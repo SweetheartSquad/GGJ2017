@@ -7,6 +7,7 @@ NUM_LAPS = 3;
 function Player( _id, _lane ){
 	this.dive_filter = new CustomFilter(PIXI.loader.resources.dive_shader.data);
 	this.dive_filter.uniforms.dive = 0;
+	this.dive_filter.uniforms.swap = 0;
 
     this.actualWidth = size.x/5;
     this.id = _id;
@@ -104,6 +105,9 @@ Player.prototype.update = function(){
     	if(this.willDive){
     		sounds["dive"].play();
     	}
+    	if(this.willSwap){
+    		sounds["willSwap"].play();
+    	}
         this.willDive = false;
         this.willSwap = false;
     } 
@@ -119,6 +123,9 @@ Player.prototype.update = function(){
 
     
     if( input.swap == true ){
+    	if(!this.willSwap){
+    		sounds["willSwap"].play();
+    	}
         this.willSwap = true;
         this.queueTimeout = 60;
     }
@@ -196,6 +203,7 @@ Player.prototype.update = function(){
     this.container.scale.x = Math.sign(this.container.scale.x) * scale;
     this.container.scale.y = Math.sign(this.container.scale.y) * scale;
     this.dive_filter.uniforms.dive = lerp(this.dive_filter.uniforms.dive, this.willDive ? 1 : 0, 0.1);
+    this.dive_filter.uniforms.swap = lerp(this.dive_filter.uniforms.swap, this.willSwap ? 1 : 0, 0.1);
 }
 
 
