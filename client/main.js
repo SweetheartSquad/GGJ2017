@@ -32,7 +32,7 @@ function init(){
 	// setup screen filter
 	screen_filter = new CustomFilter(PIXI.loader.resources.screen_shader.data);
 	screen_filter.padding = 0;
-	screen_filter.uniforms["amount"] = 1;
+	shaderAmount = 1;
 	renderSprite.filterArea = new PIXI.Rectangle(0,0,size.x,size.y);
 
 	renderSprite.filters = [screen_filter];
@@ -68,7 +68,7 @@ function onResize() {
 }
 
 function update(){
-	screen_filter.uniforms["amount"] = lerp(screen_filter.uniforms["amount"], (state === SPLASH ? transition : 1), 0.1);
+	shaderAmount = lerp(shaderAmount, (state === SPLASH ? transition : 1), 0.1);
 	if( state === SPLASH ){
 		if(splash.delay == 60 && transition > 0){
 			transition -= 0.005;
@@ -85,7 +85,7 @@ function update(){
 			splash = null;
 			menu = new Menu([0,1]);
 			state = MENU;
-			screen_filter.uniforms["amount"] = 1;
+			shaderAmount = 1;
 		}
 	}if( state === MENU ){
 		menu.lobbyUpdate();
@@ -141,6 +141,7 @@ function update(){
 
 function render(){
 
+	screen_filter.uniforms["amount"] = shaderAmount;
 	screen_filter.uniforms["transition"] = transition;
 	screen_filter.uniforms["curTime"] = curTime;
 
