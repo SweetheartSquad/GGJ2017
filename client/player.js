@@ -17,6 +17,8 @@ function Player( _id ){
     for(var i = 1; i <= 9; ++i){
     	this.swimmerframes.push(PIXI.loader.resources["swimmer_"+i.toString(10)].texture);
     }
+	this.swimmerframes.push(PIXI.loader.resources["swimmer_1"].texture);
+
     this.swimmerSprite = new PIXI.extras.AnimatedSprite( this.swimmerframes );
     this.swimmerSprite.loop = false;
     this.swimmerSprite.anchor.x = 0.5;
