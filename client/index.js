@@ -54,6 +54,12 @@ $(document).ready(function(){
 		loop:true,
 		volume:1
 	});
+	sounds["lap"]=new Howl({
+		urls:["assets/audio/0.wav"],
+		autoplay:false,
+		loop:false,
+		volume:1
+	});
 
 
 	// create render texture
