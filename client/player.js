@@ -17,6 +17,8 @@ function Player( _id ){
     for(var i = 1; i <= 9; ++i){
     	this.swimmerframes.push(PIXI.loader.resources["swimmer_"+i.toString(10)].texture);
     }
+	this.swimmerframes.push(PIXI.loader.resources["swimmer_1"].texture);
+
     this.swimmerSprite = new PIXI.extras.AnimatedSprite( this.swimmerframes );
     this.swimmerSprite.loop = false;
     this.swimmerSprite.anchor.x = 0.5;
@@ -34,7 +36,7 @@ function Player( _id ){
     this.numberText.anchor.y = 0.5;
     this.container.addChild(this.numberText);
     this.numberText.rotate = Math.PI/2;
-    this.numberText.x = this.actualWidth/2;
+    this.numberText.x = this.actualWidth*0.22;
 
     this.beanSprite = new PIXI.extras.AnimatedSprite( [
     	PIXI.loader.resources.swimmerbean1.texture,
@@ -156,6 +158,7 @@ Player.prototype.update = function(){
         this.direction = -this.direction;
         this.lapsRemaining -= 1;
         this.container.scale.x *= -1;
+        this.numberText.scale.x *= -1;
     }
     
     if(this.visualSwapQueue.length > 0){
@@ -188,6 +191,7 @@ Player.prototype.correctStroke = function(){
     this.speed += 0.5;
     this.framesSinceCorrectStroke = 0;
     this.container.scale.y *= -1;
+    this.numberText.scale.y *= -1;
 }
 
 
