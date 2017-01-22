@@ -4,6 +4,7 @@ var MENU = 0;
 var GAME = 1;
 var BEAN = 2;
 var WIN  = 3;
+var COUNTDOWN = 4;
 
 var state = SPLASH;
 
@@ -99,6 +100,11 @@ function update(){
 	}if(state === BEAN){
 		menu.beanUpdate();
 		if(menu.isBeaned()){
+			state = COUNTDOWN;
+		}
+	}if(state === COUNTDOWN){
+		menu.countdownUpdate();
+		if(menu.countdownDone()){
 			if(transition < 1){
 				transition += 0.01;
 			}else{
