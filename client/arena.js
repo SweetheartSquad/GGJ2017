@@ -172,7 +172,7 @@ Arena.prototype.swap = function( pA, pB ){
 
 Arena.prototype.addPlayers = function(_players){
 	for( var i = 0; i < _players.length; i++ ){
-		var player = new Player( _players[i], i );
+		var player = new Player( _players[i], i + (_players.length == 2 ? 1 : 0) );
 		this.players.push( player );
 		this.scene.addChild( player.container );
 	}
