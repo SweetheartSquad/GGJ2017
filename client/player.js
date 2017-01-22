@@ -11,15 +11,31 @@ function Player( _id ){
     this.lapsRemaining = NUM_LAPS;
 
     this.container = new PIXI.Container();
+    this.container.y = poolBounds.y + laneSize * (this.lane + 0.5);
+
     
-    this.swimmerSprite = new PIXI.Sprite( PIXI.loader.resources.swimmer.texture );
+    this.swimmerSprite = new PIXI.extras.AnimatedSprite( [
+    	PIXI.loader.resources.swimmer1.texture,
+    	PIXI.loader.resources.swimmer2.texture,
+    	PIXI.loader.resources.swimmer3.texture,
+    	PIXI.loader.resources.swimmer4.texture,
+    	PIXI.loader.resources.swimmer5.texture
+    	] );
+    this.swimmerSprite.loop = false;
     this.swimmerSprite.anchor.x = 0.5;
     this.swimmerSprite.anchor.y = 0.5;
     this.swimmerSprite.width = size.x/5;
     this.swimmerSprite.scale.y = this.swimmerSprite.scale.x;
     this.container.addChild( this.swimmerSprite );
 
-    this.beanSprite = new PIXI.Sprite( PIXI.loader.resources.bean.texture );
+    this.beanSprite = new PIXI.extras.AnimatedSprite( [
+    	PIXI.loader.resources.swimmerbean1.texture,
+    	PIXI.loader.resources.swimmerbean2.texture,
+    	PIXI.loader.resources.swimmerbean3.texture,
+    	PIXI.loader.resources.swimmerbean4.texture,
+    	PIXI.loader.resources.swimmerbean5.texture
+    	] );
+    this.beanSprite.loop = false;
     this.beanSprite.anchor.x = 0.5;
     this.beanSprite.anchor.y = 0.5;
     this.beanSprite.width = size.x/5;
@@ -52,6 +68,8 @@ function Player( _id ){
 
     this.speed = DEFAULT_SPEED;
     this.direction = 1;
+
+    this.visualSwapQueue = [];
 }
 
 
@@ -85,6 +103,11 @@ Player.prototype.update = function(){
     this.queueTimeout--;
 
     this.framesSinceCorrectStroke++;
+
+    if(input.strokeLeft || input.strokeRight){
+    	this.swimmerSprite.gotoAndPlay(0);
+    	this.beanSprite.gotoAndPlay(0);
+    }
 
     if( (this.nextStroke === 0 || this.nextStroke === -1) && input.strokeLeft ){
         this.nextStroke = 1;
@@ -124,7 +147,19 @@ Player.prototype.update = function(){
         this.container.scale.x *= -1;
     }
     
-    this.container.y = poolBounds.y + laneSize * (this.lane + 0.5);
+    if(this.visualSwapQueue.length > 0){
+    	this.visualSwapQueue[0].time -= 1;
+    	if(this.visualSwapQueue[0].time <= 0){
+    		this.visualSwapQueue.shift();
+    	}
+    }
+
+    var l = this.visualSwapQueue.length > 0 ? this.visualSwapQueue[0].lane : this.lane;
+    this.container.y = lerp(this.container.y, poolBounds.y + laneSize * (l + 0.5), 0.25);
+
+
+    this.beanSprite.animationSpeed = this.speed/DEFAULT_SPEED/5;
+    this.swimmerSprite.animationSpeed = this.speed/DEFAULT_SPEED/5;
 }
 
 

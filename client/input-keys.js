@@ -9,34 +9,43 @@ var keys={
 	RIGHT: 39,
 	DOWN: 40,
 
+	Q: 81,
 	W: 87,
+	E: 69,
+	R: 82,
+	T: 84,
+	Y: 89,
+	U: 85,
+	I: 73,
+	O: 79,
+	P: 80,
+
 	A: 65,
 	S: 83,
 	D: 68,
-
-	E: 69,
-	R: 82,
-
-	I: 73,
+	F: 70,
+	G: 71,
+	H: 72,
 	J: 74,
 	K: 75,
 	L: 76,
 
-	O: 79,
-	Q: 81,
-
-	Z:90,
-	X:88,
-
-	M:77,
-	P:80,
-	F:70,
-	X:88,
+	Z: 90,
+	X: 88,
+	C: 67,
+	V: 86,
+	B: 66,
+	N: 78,
+	M: 77,
 
 	SPACE: 32,
 	ENTER: 13,
 	BACKSPACE: 8,
 	ESCAPE: 27,
+	SEMI_COLON: 186,
+	SQUARE_BRACKET_OPEN: 219,
+	SQUARE_BRACKET_CLOSE: 221,
+	SINGLE_QUOTE: 222,
 
 	capture:[],
 

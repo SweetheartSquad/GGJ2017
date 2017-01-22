@@ -30,10 +30,9 @@ function init(){
 	screen_filter.padding = 0;
 	renderSprite.filterArea = new PIXI.Rectangle(0,0,size.x,size.y);
 
-	//renderSprite.filters = [screen_filter];
+	renderSprite.filters = [screen_filter];
 
 	transition = 0;
-	transitionDirection = 1;
 
 	poolBounds = {
 		width: size.x - size.x/14*2,
@@ -56,14 +55,12 @@ function init(){
 
 function onResize() {
 	_resize();
-	//screen_filter.uniforms["screen"] = [size.x,size.y];
-	//screen_filter.uniforms["bufferSize"] = [nextPowerOfTwo(size.x),nextPowerOfTwo(size.y)];
-
+	screen_filter.uniforms["screenSize"] = [size.x,size.y];
+	screen_filter.uniforms["bufferSize"] = [nextPowerOfTwo(size.x),nextPowerOfTwo(size.y)];
 	console.log("Resized",size,scaleMultiplier,[size.x*scaleMultiplier,size.y*scaleMultiplier]);
 }
 
 function update(){
-
 	if( state === MENU ){
 		menu.lobbyUpdate();
 		if(menu.isDone()){
@@ -72,19 +69,24 @@ function update(){
 	}if(state === BEAN){
 		menu.beanUpdate();
 		if(menu.isBeaned()){
-			//sounds[""].play();
-			arena = new Arena(menu.getPlayers());
-			arena.players[menu.whoIsBeaned].hasBean = true;
-			menu.destroy();
-			menu = false;
-			state = GAME;
+			if(transition < 1){
+				transition += 0.01;
+			}else{
+				//sounds[""].play();
+				arena = new Arena(menu.getPlayers());
+				arena.players[menu.whoIsBeaned].hasBean = true;
+				menu.destroy();
+				menu = false;
+				state = GAME;
+			}
 		}
 	}if( state === GAME ){
+		transition = lerp(transition,0,0.05);
 		arena.update();
 	}
 
 
-	if(keys.isJustDown(keys.F)){
+	if(keys.isJustDown(keys.ENTER)){
 		fullscreen.toggleFullscreen();
 	}if(keys.isJustDown(keys.M)){
 		toggleMute();
@@ -98,6 +100,9 @@ function update(){
 
 
 function render(){
+
+	screen_filter.uniforms["transition"] = transition;
+	screen_filter.uniforms["curTime"] = curTime;
 
 	if(state === MENU || state === BEAN){
 		menu.render();
@@ -140,35 +145,46 @@ function getInput(_playerId){
 		break;
 
 		case 1:
+		keyConfig.strokeLeft = keys.R;
+		keyConfig.strokeRight = keys.T;
+		keyConfig.dive = keys.F;
+		keyConfig.swap = keys.G;
+		break;
+
+		case 2:
 		keyConfig.strokeLeft = keys.U;
 		keyConfig.strokeRight = keys.I;
 		keyConfig.dive = keys.J;
 		keyConfig.swap = keys.K;
 		break;
 
+		case 3:
+		keyConfig.strokeLeft = keys.P;
+		keyConfig.strokeRight = keys.SQUARE_BRACKET_OPEN;
+		keyConfig.dive = keys.SEMI_COLON;
+		keyConfig.swap = keys.SINGLE_QUOTE;
+		break;
+
 		default:
-		// no keyboard controls past first two players
 	}
 
-	if(keys.isJustDown(keyConfig.strokeLeft)){ res.strokeLeft = true};
-	if(keys.isJustDown(keyConfig.strokeRight)){ res.strokeRight = true};
-	if(keys.isJustDown(keyConfig.dive)){ res.dive = true};
-	if(keys.isJustDown(keyConfig.swap)){ res.swap = true};
+	if(keys.isJustDown(keyConfig.strokeLeft)){ res.strokeLeft = true; }
+	if(keys.isJustDown(keyConfig.strokeRight)){ res.strokeRight = true; }
+	if(keys.isJustDown(keyConfig.dive)){ res.dive = true; }
+	if(keys.isJustDown(keyConfig.swap)){ res.swap = true; }
 
 	/*
 	// gamepad input
-	if(gamepads.axisPast(gamepads.LSTICK_H, -0.5, -1, _playerId) || gamepads.isDown(gamepads.DPAD_LEFT, _playerId)){ res.x -= 1; }
+	|| gamepads.isDown(gamepads.DPAD_LEFT, _playerId)){ res.x -= 1; }
 	if(gamepads.axisPast(gamepads.LSTICK_H, 0.5, 1, _playerId) || gamepads.isDown(gamepads.DPAD_RIGHT, _playerId)){ res.x += 1; }
 	if(gamepads.axisPast(gamepads.LSTICK_V, -0.5, -1, _playerId) || gamepads.isDown(gamepads.DPAD_UP, _playerId)){ res.y -= 1; }
 	if(gamepads.axisPast(gamepads.LSTICK_V, 0.5, 1, _playerId) || gamepads.isDown(gamepads.DPAD_DOWN, _playerId)){ res.y += 1; }
 	*/
 
+	if(gamepads.isJustDown(gamepads.LT, _playerId)){ res.strokeLeft = true; }
+	if(gamepads.isJustDown(gamepads.RT, _playerId)){ res.strokeRight = true; }
 	if(gamepads.isJustDown(gamepads.A, _playerId) || gamepads.isJustDown(gamepads.Y, _playerId) ){ res.dive = true; }
 	if(gamepads.isJustDown(gamepads.X, _playerId) || gamepads.isJustDown(gamepads.B, _playerId) ){ res.swap = true; }
-
-	// clamp directional input (might be using both keyboard and controller)
-	res.x = clamp(-1, res.x, 1);
-	res.y = clamp(-1, res.y, 1);
 
 	return res;
 }
