@@ -202,6 +202,20 @@ Arena.prototype.updateLanes = function(){
 	}
 };
 
+Arena.prototype.destroy = function(){
+	game.removeChild(this.scene);
+	this.scene.destroy();
+};
+
+Arena.prototype.getScores = function(){
+	var scores = [];
+	for( var i = 0; i < this.players.length; i++ ){
+		scores.push( NUM_LAPS - this.players[i].lapsRemaining );
+	}
+	return scores;
+}
+
+
 Arena.prototype.updateLaneCounts = function(){
 	// wavy lanes
 	for(var i = 0; i < this.laneCounts.length; ++i){

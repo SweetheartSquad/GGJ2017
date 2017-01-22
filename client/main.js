@@ -87,8 +87,15 @@ function update(){
 	}if( state === GAME ){
 		transition = lerp(transition,0,0.05);
 		arena.update();
+		if( arena.isDone() ){
+			var scores = arena.getScores();
+			win = new Win(scores);
+			state = WIN;
+			transition = 1;
+		}
 	}if(state === WIN){
-		win.render();
+		transition = lerp(transition,0,0.05);
+		win.update();
 	}
 
 
