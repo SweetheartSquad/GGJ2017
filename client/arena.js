@@ -72,6 +72,11 @@ function Arena(_players){
 	this.done = false;
 
 	this.elapsed = 0;
+
+
+	var help = new PIXI.Sprite(PIXI.loader.resources.help.texture);
+	help.visible = false;
+	this.scene.addChild(help);
 }
 
 
@@ -113,7 +118,6 @@ Arena.prototype.update = function(){
 			}
 		}
 	}
-
 
 	this.updateLanes();
 	this.updateLaneCounts();

@@ -95,6 +95,10 @@ function Menu(_players){
 	this.beanTimer = 0;
 	this.whoIsBeaned = -1;
 
+
+	this.help = new PIXI.Sprite(PIXI.loader.resources.help.texture);
+	this.help.visible = false;
+	this.scene.addChild(this.help);
 };
 
 Menu.prototype.destroy = function(){
@@ -112,11 +116,20 @@ Menu.prototype.alwaysUpdate = function(){
 
 Menu.prototype.lobbyUpdate = function(){
 	this.alwaysUpdate();
+
+
+	if(keys.isJustDown(keys.ESCAPE) || keys.isJustDown(keys.SPACE) || keys.isJustDown(keys.H) ||
+		gamepads.isJustDown(gamepads.START) || gamepads.isJustDown(gamepads.SELECT)){
+		this.help.visible = !this.help.visible;
+		transition = 0.25;
+		shaderAmount += 2;
+	}
+
 	if(!this.isDone()){
 		for(var i = 0; i < 4; ++i){
 			var input = getInput(i);
 
-			if(input.dive){
+			if(!this.help.visible && input.dive){
 				if(this.ready[i]){
 					// nothing
 				}else if(this.joined[i]){
@@ -135,7 +148,7 @@ Menu.prototype.lobbyUpdate = function(){
 				}
 			}
 
-			if(input.swap){
+			if(!this.help.visible && input.swap){
 				if(this.ready[i]){
 					// unready
 					this.ready[i] = false;

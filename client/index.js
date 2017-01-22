@@ -151,6 +151,7 @@ $(document).ready(function(){
 
 	PIXI.loader
 		.add("splash","assets/img/GGJ00_GameCredits_SplashScreen.png")
+		.add("help","assets/img/help.png")
 
 		.add("screen_shader","assets/screen_shader.frag")
 		.add("dive_shader","assets/dive_shader.frag")
@@ -178,6 +179,7 @@ $(document).ready(function(){
 
 		.add("win","assets/img/win.png")
 		.add("medal","assets/img/medal.png")
+
 
 		.add("joinText","assets/img/joinText.png")
 		.add("readyText","assets/img/readyText.png");
