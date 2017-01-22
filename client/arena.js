@@ -248,8 +248,19 @@ Arena.prototype.updateLaneCounts = function(){
 		var laneCount = this.laneCounts[i];
 		for(var j = 0; j < laneCount.texts.length; ++j){
 			var text = laneCount.texts[j];
+			
+			text.scale.x = lerp(text.scale.x, 1, 0.1);
+			text.scale.y = text.scale.x;
 			text.y = poolBounds.y + laneSize * (laneCount.player.lane + 0.5);
+			
+			var t = text.text;
 			text.setText(laneCount.player.lapsRemaining);
+			if(t != text.text){
+				text.scale.x += 1;
+				text.scale.y += 1;
+				sounds["lap"].play();
+			}
+
 		}
 	}
 };
