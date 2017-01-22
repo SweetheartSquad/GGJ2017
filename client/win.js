@@ -115,6 +115,9 @@ Win.prototype.render = function(){
 Win.prototype.update = function(){
     if(this.beanTimer > 0){
         this.beanTimer -=1;
+        if( this.beanTimer == 60){
+            sounds["whoBean"].play();
+        }
         if(this.beanTimer == 0){
             sounds["lose"].play();
         }

@@ -145,6 +145,13 @@ $(document).ready(function(){
 		loop:false,
 		volume:1
 	});
+	
+	sounds["whoBean"]=new Howl({
+		urls:["assets/audio/WhoBean.wav"],
+		autoplay:false,
+		loop:false,
+		volume:1
+	});
 
 
 	// create render texture
