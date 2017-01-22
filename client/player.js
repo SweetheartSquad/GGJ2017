@@ -5,6 +5,9 @@ SPEED_RESET_FRAMES = 60;
 NUM_LAPS = 5;
 
 function Player( _id ){
+	this.dive_filter = new CustomFilter(PIXI.loader.resources.dive_shader.data);
+	this.dive_filter.uniforms.dive = 0;
+
     this.actualWidth = size.x/5;
     this.id = _id;
     this.lane = _id;
@@ -26,6 +29,8 @@ function Player( _id ){
     this.swimmerSprite.width = this.actualWidth;
     this.swimmerSprite.scale.y = this.swimmerSprite.scale.x;
     this.container.addChild( this.swimmerSprite );
+
+    this.container.filters = [this.dive_filter];
 
     this.numberText = new PIXI.Text((_id+1).toString(10), {
     	fontFamily: "Times New Roman",
@@ -174,6 +179,11 @@ Player.prototype.update = function(){
 
     this.beanSprite.animationSpeed = this.speed/DEFAULT_SPEED/3;
     this.swimmerSprite.animationSpeed = this.speed/DEFAULT_SPEED/3;
+
+    var scale = lerp(Math.abs(this.container.scale.x), this.willDive ? 0.75 : 1, 0.1);
+    this.container.scale.x = Math.sign(this.container.scale.x) * scale;
+    this.container.scale.y = Math.sign(this.container.scale.y) * scale;
+    this.dive_filter.uniforms.dive = lerp(this.dive_filter.uniforms.dive, this.willDive ? 1 : 0, 0.1);
 }
 
 
