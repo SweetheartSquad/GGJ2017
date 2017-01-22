@@ -4,7 +4,7 @@ function Menu(_players){
 
 	// background
 	var bg = new PIXI.Graphics();
-	bg.beginFill(0xFFFFFF);
+	bg.beginFill(0x00FFFF);
 	bg.drawRect(0,0,size.x,size.y);
 	bg.endFill();
 	this.scene.addChild(bg);

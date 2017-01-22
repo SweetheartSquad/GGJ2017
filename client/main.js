@@ -5,6 +5,8 @@ var BEAN = 2;
 
 var state = MENU;
 
+debug = false;
+
 function main(){
 	curTime = Date.now()-startTime;
 	deltaTime = curTime-lastTime;

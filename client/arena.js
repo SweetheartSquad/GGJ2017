@@ -7,7 +7,7 @@ function Arena(){
 	game.addChild(this.scene);
 
 	var bg = new PIXI.Graphics();
-	bg.beginFill(0xFFFFFF);
+	bg.beginFill(0x00FFFF);
 	bg.drawRect(0,0,size.x,size.y);
 	bg.endFill();
 	this.scene.addChild(bg);
@@ -20,13 +20,15 @@ function Arena(){
 	arena.height = size.y;
 	this.scene.addChild(arena);
 
-	var g = new PIXI.Graphics();
-	g.beginFill(0,0);
-	g.lineStyle(3,0xFF0000);
-	g.drawRect(poolBounds.x, poolBounds.y, poolBounds.width, poolBounds.height);
-	g.endFill();
+	if(debug){
+		var g = new PIXI.Graphics();
+		g.beginFill(0,0);
+		g.lineStyle(3,0xFF0000);
+		g.drawRect(poolBounds.x, poolBounds.y, poolBounds.width, poolBounds.height);
+		g.endFill();
+		this.scene.addChild(g);
+	}
 
-	this.scene.addChild(g);
 
 	
 	this.addLaneCounts();

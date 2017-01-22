@@ -19,7 +19,8 @@ function Player( _id ){
     	PIXI.loader.resources.swimmer2.texture,
     	PIXI.loader.resources.swimmer3.texture,
     	PIXI.loader.resources.swimmer4.texture,
-    	PIXI.loader.resources.swimmer5.texture
+    	PIXI.loader.resources.swimmer5.texture,
+    	PIXI.loader.resources.swimmer1.texture
     	] );
     this.swimmerSprite.loop = false;
     this.swimmerSprite.anchor.x = 0.5;
@@ -33,7 +34,8 @@ function Player( _id ){
     	PIXI.loader.resources.swimmerbean2.texture,
     	PIXI.loader.resources.swimmerbean3.texture,
     	PIXI.loader.resources.swimmerbean4.texture,
-    	PIXI.loader.resources.swimmerbean5.texture
+    	PIXI.loader.resources.swimmerbean5.texture,
+    	PIXI.loader.resources.swimmerbean1.texture
     	] );
     this.beanSprite.loop = false;
     this.beanSprite.anchor.x = 0.5;
@@ -42,7 +44,7 @@ function Player( _id ){
     this.beanSprite.scale.y = this.beanSprite.scale.x;
     this.container.addChild( this.beanSprite );
 
-    this.swimmerSprite.tint = this.beanSprite.tint = Math.random()*0xFFFFFF;
+    //this.swimmerSprite.tint = this.beanSprite.tint = Math.random()*0xFFFFFF;
 
     this.nextStroke = 0;
     this.framesSinceCorrectStroke = 0;
@@ -57,12 +59,14 @@ function Player( _id ){
 
     this.queueTimeout = 0;
 
-    var debug = new PIXI.Graphics();
-    debug.beginFill(0,0);
-    debug.lineStyle(1,0xFF0000);
-    debug.drawCircle(0,0,this.swimmerSprite.width/3);
-    debug.endFill();
-    this.container.addChild(debug);
+    if(debug){
+	    var debug = new PIXI.Graphics();
+	    debug.beginFill(0,0);
+	    debug.lineStyle(1,0xFF0000);
+	    debug.drawCircle(0,0,this.swimmerSprite.width/3);
+	    debug.endFill();
+	    this.container.addChild(debug);
+    }
 
     this.container.x = poolBounds.x + this.swimmerSprite.width * 0.5;
 
@@ -158,8 +162,8 @@ Player.prototype.update = function(){
     this.container.y = lerp(this.container.y, poolBounds.y + laneSize * (l + 0.5), 0.25);
 
 
-    this.beanSprite.animationSpeed = this.speed/DEFAULT_SPEED/5;
-    this.swimmerSprite.animationSpeed = this.speed/DEFAULT_SPEED/5;
+    this.beanSprite.animationSpeed = this.speed/DEFAULT_SPEED/6;
+    this.swimmerSprite.animationSpeed = this.speed/DEFAULT_SPEED/6;
 }
 
 
