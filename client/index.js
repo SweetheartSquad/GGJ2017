@@ -67,6 +67,7 @@ $(document).ready(function(){
 
 	PIXI.loader
 		.add("screen_shader","assets/screen_shader.frag")
+		.add("dive_shader","assets/dive_shader.frag")
 		.add("BEAN-logo","assets/img/BEAN-logo.png")
 		.add("arena","assets/img/arena.png")
 		.add("lane","assets/img/lane.png")
