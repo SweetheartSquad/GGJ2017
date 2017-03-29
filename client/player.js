@@ -175,6 +175,7 @@ Player.prototype.update = function(){
         ( this.container.x - this.swimmerSprite.width/2 <= poolBounds.x )
     ){
         this.direction = -this.direction;
+        this.container.x += this.direction*10;
         this.lapsRemaining -= 1;
         this.container.scale.x *= -1;
         this.numberText.scale.x *= -1;
