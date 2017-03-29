@@ -47,16 +47,16 @@ function Player( _id, _lane ){
     this.container.addChild( this.beanSprite );
 
     // number
-    this.numberText = new PIXI.Text((_id+1).toString(10), {
-    	fontFamily: "Times New Roman",
-    	fontSize: "32px",
-    	fill:0xFFFF00
+    this.numberText = new PIXI.Text((_id+1).toString(10)+'>', {
+    	fontFamily: "Comic Sans MS",
+    	fontSize: "96px",
+        fontWeight: "bolder",
+    	fill:0xFF00FF
     });
     this.numberText.anchor.x = 0.5;
     this.numberText.anchor.y = 0.5;
     this.container.addChild(this.numberText);
-    this.numberText.rotate = Math.PI/2;
-    this.numberText.x = this.actualWidth*0.22;
+    this.numberText.x = -this.actualWidth*0.25;
 
     //this.swimmerSprite.tint = this.beanSprite.tint = Math.random()*0xFFFFFF;
 
@@ -179,6 +179,7 @@ Player.prototype.update = function(){
         this.lapsRemaining -= 1;
         this.container.scale.x *= -1;
         this.numberText.scale.x *= -1;
+        this.numberText.text = this.direction > 0 ? (this.id+1).toString(10)+'>' : '<'+(this.id+1).toString(10);
     }
     
     if(this.visualSwapQueue.length > 0){
@@ -205,6 +206,8 @@ Player.prototype.update = function(){
     this.container.scale.y = Math.sign(this.container.scale.y) * scale;
     this.dive_filter.uniforms.dive = lerp(this.dive_filter.uniforms.dive, this.willDive ? 1 : 0, 0.1);
     this.dive_filter.uniforms.swap = lerp(this.dive_filter.uniforms.swap, this.willSwap ? 1 : 0, 0.1);
+
+    this.numberText.rotation = Math.sin(this.container.x/30+this.id)/4;
 }
 
 
