@@ -1,4 +1,5 @@
 function Arena(_players){
+	NUM_LAPS = 5 + _players.length*5;
 	this.players = [];
 	this.lanes = [];
 	this.laneCounts = [];
