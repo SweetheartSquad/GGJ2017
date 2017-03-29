@@ -141,6 +141,8 @@ function update(){
 				var scores = arena.getScores();
 				var beaned = arena.getBeaned();
 				win = new Win(scores, beaned, arena.getIds());
+				arena.destroy();
+				arena = null;
 				state = WIN;
 				transition = 1;
 			}
@@ -149,9 +151,10 @@ function update(){
 		transition = lerp(transition,0,0.05);
 		win.update();
 		if( win.isDone() ){
-			win.destroy();
 			state = MENU;
 			menu = new Menu( win.getIds() );
+			win.destroy();
+			win = null;
 			transition = 1;
 		}
 	}
