@@ -255,8 +255,8 @@ function getInput(_playerId){
 	if(gamepads.axisPast(gamepads.LSTICK_V, 0.5, 1, _playerId) || gamepads.isDown(gamepads.DPAD_DOWN, _playerId)){ res.y += 1; }
 	*/
 
-	if(gamepads.isJustDown(gamepads.LT, _playerId) || gamepads.isJustDown(gamepads.LB, _playerId)){ res.strokeLeft = true; }
-	if(gamepads.isJustDown(gamepads.RT, _playerId) || gamepads.isJustDown(gamepads.RB, _playerId)){ res.strokeRight = true; }
+	if(gamepads.isJustDown(gamepads.LT, _playerId) || gamepads.isJustDown(gamepads.LB, _playerId) || gamepads.isJustDown(gamepads.DPAD_LEFT, _playerId)){ res.strokeLeft = true; }
+	if(gamepads.isJustDown(gamepads.RT, _playerId) || gamepads.isJustDown(gamepads.RB, _playerId) || gamepads.isJustDown(gamepads.DPAD_RIGHT, _playerId)){ res.strokeRight = true; }
 	if(gamepads.isJustDown(gamepads.A, _playerId) || gamepads.isJustDown(gamepads.Y, _playerId) ){ res.dive = true; }
 	if(gamepads.isJustDown(gamepads.X, _playerId) || gamepads.isJustDown(gamepads.B, _playerId) ){ res.swap = true; }
 
